@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Chenzhou" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CS231n  backpropagation简介cs231n backpropagation反向传播推导 原note 地址 : http://cs231n.github.io/optimization-2/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cs231n 反向传播推导">
+<meta property="og:url" content="http://yoursite.com/2018/10/07/cs231n-backpropagation/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="CS231n  backpropagation简介cs231n backpropagation反向传播推导 原note 地址 : http://cs231n.github.io/optimization-2/">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/10/07/cs231n-backpropagation/bp1.jpg">
+<meta property="og:updated_time" content="2018-10-07T15:29:47.610Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cs231n 反向传播推导">
+<meta name="twitter:description" content="CS231n  backpropagation简介cs231n backpropagation反向传播推导 原note 地址 : http://cs231n.github.io/optimization-2/">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/07/cs231n-backpropagation/bp1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","sidebar":false}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/07/cs231n-backpropagation/"/>
+
+
+
+
+
+  <title>cs231n 反向传播推导 | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/07/cs231n-backpropagation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chen Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cs231n 反向传播推导</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-07T19:24:24+08:00">
+                2018-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cs231n/" itemprop="url" rel="index">
+                    <span itemprop="name">cs231n</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CS231n-backpropagation"><a href="#CS231n-backpropagation" class="headerlink" title="CS231n  backpropagation"></a>CS231n  backpropagation</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>cs231n backpropagation反向传播推导</p>
+<p>原note 地址 :</p>
+<p><a href="http://cs231n.github.io/optimization-2/" target="_blank" rel="noopener">http://cs231n.github.io/optimization-2/</a></p>
+<a id="more"></a>
+<h5 id="Sigmoid为例子："><a href="#Sigmoid为例子：" class="headerlink" title="Sigmoid为例子："></a>Sigmoid为例子：</h5><script type="math/tex; mode=display">
+\frac{1}{1+e^{-(w_0x_0+w_1x_1)}}</script><p><img src="/2018/10/07/cs231n-backpropagation/bp1.jpg" style="border:0" width="100%" hegiht="100%" align="center"></p>
+<script type="math/tex; mode=display">
+f(x) = \frac{1}{x} \space ---\space \frac{df(x)}{dx}=-\frac{1}{x^2}\\
+f(x) = c+x \space --- \frac{df(x)}{dx}=1\\
+f(x) = e^x --- \frac{df(x)}{dx}=e^x\\
+f(x) = ax --- \frac{df(x)}{dx}=a\\</script><p>正向传播：上图绿色部分</p>
+<p>​    如 : </p>
+<p>​              $w_0(2.00)*x_0(-1.00)=-2.00$</p>
+<p>​              $w_1(-3.00)*x_1(-2.00)=6.00$</p>
+<p>​              $-2.00+6.00=4.00$</p>
+<p>反向传播：上图红色部分</p>
+<p>​    从最后一个节点开始,初始为1.00 ：</p>
+<p>​               $\frac{df(x)}{dx} = -\frac{1}{x^2}$</p>
+<p>​               $1.00*-\frac{1}{1.37^2}=-0.53$        </p>
+<p>​               $\frac{df(x)}{dx} =1$</p>
+<p>​               $-0.53*1=-0.53$</p>
+<p>​               $\frac{df(x)}{dx} =e^x$       </p>
+<p>​               $-0.53*e^{-1.00}=-0.20$</p>
+<p>​              下同</p>
+<h2 id="双层神经网络梯度计算"><a href="#双层神经网络梯度计算" class="headerlink" title="双层神经网络梯度计算"></a>双层神经网络梯度计算</h2><p>参数</p>
+<p>X [N,D], y[N,1]</p>
+<p>-&gt; W1 [D,H] , b1[1,H]</p>
+<p>-&gt; Relu</p>
+<p>-&gt; W2 [H,C] , b2[1,C]</p>
+<p>-&gt; Loss</p>
+<p>隐层输出函数</p>
+<script type="math/tex; mode=display">
+f_{hidden}(w_1,b_1,x)</script><p>输出层函数(不包含softmax, softmax包含在loss函数里)</p>
+<script type="math/tex; mode=display">
+f_{outpu}(w_2,b_2,f_{hidden})</script><p>损失函数</p>
+<script type="math/tex; mode=display">
+Loss (f_{output},y)</script><p>先求w2和b2的梯度(详情见softmax那部分):</p>
+<script type="math/tex; mode=display">
+\frac{dLoss}{dw_2} = \frac{dLoss}{df_{output}}\frac{df_{output}}{dw_2} \\= \frac{1}{N}{(P-MASK)}\frac{df_{output}}{dw_2}=\frac{1}{N}(f_{hidden})^T\dot{}{(P-MASK)}+ 2{\lambda}w_{2}</script><script type="math/tex; mode=display">
+\frac{dLoss}{db_2} = \frac{dLoss}{df_{output}}\frac{df_{output}}{db_2} = \frac{1}{N}{(P-MASK)}\frac{df_{output}}{db_2}\\=[1,1,1...N]\dot{}\frac{1}{N}{(P-MASK)}=sum(\frac{1}{N}{(P-MASK)},axis=0)</script><p>再求w1和b1的梯度：</p>
+<script type="math/tex; mode=display">
+\frac{dLoss}{dw_1} = \frac{dLoss}{df_{output}}\frac{df_{output}}{df_{hidden}}\frac{df_{hidden}}{dw_1} = \frac{1}{N}{(P-MASK)}\dot{}{w_2}\dot{}{\frac{df_{hidden}}{dw_1} }\\
+={x^T}\dot{}{g(\frac{1}{N}{(P-MASK)}\dot{}{w_2})}+2{\lambda}w_{1}</script><script type="math/tex; mode=display">
+说明：设\vec{v}=[v_1,v_2....],g(\vec{v}) =v[w_1x+b_1>0]= 0</script><p>（因为被Relu置为0的那些输出，其梯度也是0）</p>
+<script type="math/tex; mode=display">
+\frac{dLoss}{db_1} = \frac{dLoss}{df_{output}}\frac{df_{output}}{df_{hidden}}\frac{df_{hidden}}{db_1} = \frac{1}{N}{(P-MASK)}\dot{}{w_2}\dot{}{\frac{df_{hidden}}{db_1} }\\
+=sum({g(\frac{1}{N}{(P-MASK)}\dot{}{w_2})},axis=0)</script><h2 id="cs231n-assiginment1"><a href="#cs231n-assiginment1" class="headerlink" title="cs231n assiginment1"></a>cs231n assiginment1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loss</span><span class="params">(self, X, y=None, reg=<span class="number">0.0</span>)</span>:</span></span><br><span class="line">  <span class="string">"""</span></span><br><span class="line"><span class="string">  Compute the loss and gradients for a two layer fully connected neural</span></span><br><span class="line"><span class="string">  network.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  Inputs:</span></span><br><span class="line"><span class="string">  - X: Input data of shape (N, D). Each X[i] is a training sample.</span></span><br><span class="line"><span class="string">  - y: Vector of training labels. y[i] is the label for X[i], and each y[i] is</span></span><br><span class="line"><span class="string">    an integer in the range 0 &lt;= y[i] &lt; C. This parameter is optional; if it</span></span><br><span class="line"><span class="string">    is not passed then we only return scores, and if it is passed then we</span></span><br><span class="line"><span class="string">    instead return the loss and gradients.</span></span><br><span class="line"><span class="string">  - reg: Regularization strength.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  Returns:</span></span><br><span class="line"><span class="string">  If y is None, return a matrix scores of shape (N, C) where scores[i, c] is</span></span><br><span class="line"><span class="string">  the score for class c on input X[i].</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  If y is not None, instead return a tuple of:</span></span><br><span class="line"><span class="string">  - loss: Loss (data loss and regularization loss) for this batch of training</span></span><br><span class="line"><span class="string">    samples.</span></span><br><span class="line"><span class="string">  - grads: Dictionary mapping parameter names to gradients of those parameters</span></span><br><span class="line"><span class="string">    with respect to the loss function; has the same keys as self.params.</span></span><br><span class="line"><span class="string">  """</span></span><br><span class="line">  <span class="comment"># Unpack variables from the params dictionary</span></span><br><span class="line">  W1, b1 = self.params[<span class="string">'W1'</span>], self.params[<span class="string">'b1'</span>]</span><br><span class="line">  W2, b2 = self.params[<span class="string">'W2'</span>], self.params[<span class="string">'b2'</span>]</span><br><span class="line">  N, D = X.shape</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Compute the forward pass</span></span><br><span class="line">  scores = <span class="keyword">None</span></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  <span class="comment"># <span class="doctag">TODO:</span> Perform the forward pass, computing the class scores for the input. #</span></span><br><span class="line">  <span class="comment"># Store the result in the scores variable, which should be an array of      #</span></span><br><span class="line">  <span class="comment"># shape (N, C).                                                             #</span></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  </span><br><span class="line">  hidden_out = np.maximum(X.dot(W1)+b1,<span class="number">0</span>)   <span class="comment">#relu</span></span><br><span class="line">  scores = hidden_out.dot(W2)+b2</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  <span class="comment">#                              END OF YOUR CODE                             #</span></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment"># If the targets are not given then jump out, we're done</span></span><br><span class="line">  <span class="keyword">if</span> y <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">    <span class="keyword">return</span> scores</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Compute the loss</span></span><br><span class="line">  loss = <span class="keyword">None</span></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  <span class="comment"># <span class="doctag">TODO:</span> Finish the forward pass, and compute the loss. This should include  #</span></span><br><span class="line">  <span class="comment"># both the data loss and L2 regularization for W1 and W2. Store the result  #</span></span><br><span class="line">  <span class="comment"># in the variable loss, which should be a scalar. Use the Softmax           #</span></span><br><span class="line">  <span class="comment"># classifier loss.                                                          #</span></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  scores_centre = scores-np.max(scores,axis=<span class="number">1</span>).reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">  expsum = np.sum(np.exp(scores_centre),axis=<span class="number">1</span>)</span><br><span class="line">  loss = <span class="number">1</span>/N*(  np.sum(-scores_centre[list(range(N)),y].reshape(<span class="number">-1</span>,<span class="number">1</span>)+np.log(expsum.reshape(<span class="number">-1</span>,<span class="number">1</span>))))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  loss += <span class="number">0.5</span>*reg*np.sum(W1*W1)+<span class="number">0.5</span>*reg*np.sum(W2*W2)</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  <span class="comment">#                              END OF YOUR CODE                             #</span></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Backward pass: compute gradients</span></span><br><span class="line">  grads = &#123;&#125;</span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  <span class="comment"># <span class="doctag">TODO:</span> Compute the backward pass, computing the derivatives of the weights #</span></span><br><span class="line">  <span class="comment"># and biases. Store the results in the grads dictionary. For example,       #</span></span><br><span class="line">  <span class="comment"># grads['W1'] should store the gradient on W1, and be a matrix of same size #</span></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  </span><br><span class="line">  p = np.exp(scores_centre)/np.sum(np.exp(scores_centre),axis=<span class="number">1</span>).reshape(<span class="number">-1</span>,<span class="number">1</span>)</span><br><span class="line">  mask = np.zeros_like(p)</span><br><span class="line">  mask[list(range(p.shape[<span class="number">0</span>])),y]=<span class="number">1</span></span><br><span class="line">  grads[<span class="string">'W2'</span>] = hidden_out.T.dot((p-mask)/N)+reg*W2</span><br><span class="line">  grads[<span class="string">'b2'</span>] = np.sum((p-mask)/N,axis=<span class="number">0</span>)</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  dh = ((p-mask)/N).dot(W2.T)</span><br><span class="line">  dh = (hidden_out&gt;<span class="number">0</span>)*dh</span><br><span class="line">  grads[<span class="string">'W1'</span>] = X.T.dot(dh) + reg * W1</span><br><span class="line">  grads[<span class="string">'b1'</span>] = np.sum(dh, axis = <span class="number">0</span>)</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line">  <span class="comment">#                              END OF YOUR CODE                             #</span></span><br><span class="line">  <span class="comment">#############################################################################</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> loss, grads</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Chen Zhou
+  </li>
+
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/07/cs231n-softmax/" rel="next" title="cs231n softmax 推导">
+                <i class="fa fa-chevron-left"></i> cs231n softmax 推导
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/08/cs231n-svm/" rel="prev" title="cs231n-svm">
+                cs231n-svm <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="Chen Zhou" />
+            
+              <p class="site-author-name" itemprop="name">Chen Zhou</p>
+              <p class="site-description motion-element" itemprop="description">Get busy living, or get busy dying.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chenzhou9513" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="chenzhou9513@zju.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CS231n-backpropagation"><span class="nav-number">1.</span> <span class="nav-text">CS231n  backpropagation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Sigmoid为例子："><span class="nav-number">1.1.0.0.1.</span> <span class="nav-text">Sigmoid为例子：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双层神经网络梯度计算"><span class="nav-number">1.2.</span> <span class="nav-text">双层神经网络梯度计算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cs231n-assiginment1"><span class="nav-number">1.3.</span> <span class="nav-text">cs231n assiginment1</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chen Zhou</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
