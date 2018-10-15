@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Chenzhou" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Mask RCNN简介💂 详细介绍Mask-RCNN 的模型结构和代码 论文地址 : https://arxiv.org/abs/1703.06870 参考Github 代码 : https://github.com/matterport/Mask_RCNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mask R-CNN">
+<meta property="og:url" content="http://yoursite.com/2018/10/14/mask-rcnn/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="Mask RCNN简介💂 详细介绍Mask-RCNN 的模型结构和代码 论文地址 : https://arxiv.org/abs/1703.06870 参考Github 代码 : https://github.com/matterport/Mask_RCNN">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/mask-rcnn/basebone.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/mask-rcnn/mask-rcnn/anchors.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/mask-rcnn/mask-rcnn/rpn1.png">
+<meta property="og:image" content="http://yoursite.com/2018/10/14/mask-rcnn/mask-rcnn/rpn2.png">
+<meta property="og:updated_time" content="2018-10-15T14:47:52.691Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mask R-CNN">
+<meta name="twitter:description" content="Mask RCNN简介💂 详细介绍Mask-RCNN 的模型结构和代码 论文地址 : https://arxiv.org/abs/1703.06870 参考Github 代码 : https://github.com/matterport/Mask_RCNN">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/14/mask-rcnn/basebone.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","sidebar":false}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/14/mask-rcnn/"/>
+
+
+
+
+
+  <title>Mask R-CNN | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/14/mask-rcnn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chen Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Mask R-CNN</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-14T18:43:57+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Mask-RCNN"><a href="#Mask-RCNN" class="headerlink" title="Mask RCNN"></a>Mask RCNN</h1><h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p>&#x1F482; &#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;Mask-RCNN &#x7684;&#x6A21;&#x578B;&#x7ED3;&#x6784;&#x548C;&#x4EE3;&#x7801;</p>
+<p>&#x8BBA;&#x6587;&#x5730;&#x5740; : <a href="https://arxiv.org/abs/1703.06870" target="_blank" rel="noopener">https://arxiv.org/abs/1703.06870</a></p>
+<p>&#x53C2;&#x8003;Github &#x4EE3;&#x7801; : <a href="https://github.com/matterport/Mask_RCNN" target="_blank" rel="noopener">https://github.com/matterport/Mask_RCNN</a></p>
+<a id="more"></a>
+<h2 id="&#x7F51;&#x7EDC;&#x7ED3;&#x6784;"><a href="#&#x7F51;&#x7EDC;&#x7ED3;&#x6784;" class="headerlink" title="&#x7F51;&#x7EDC;&#x7ED3;&#x6784;"></a>&#x7F51;&#x7EDC;&#x7ED3;&#x6784;</h2><h3 id="1-Basebone"><a href="#1-Basebone" class="headerlink" title="1 Basebone"></a>1 Basebone</h3><p>&#x7528;Resnet50&#x548C;&#x7279;&#x5F81;&#x91D1;&#x5B57;&#x5854;&#x7F51;&#x7EDC; &#x63D0;&#x53D6;&#x56FE;&#x7247;&#x7684;&#x7279;&#x5F81;</p>
+<p>&#x7ED3;&#x6784;&#xFF1A;</p>
+<p><img src="/2018/10/14/mask-rcnn/basebone.png"></p>
+<p>Basebone&#x751F;&#x6210;&#x7684;  [p2,p3,p4,p5,p6]  &#x662F;&#x540E;&#x9762;&#x6240;&#x6709;&#x64CD;&#x4F5C;&#x7684;&#x6570;&#x636E;&#x57FA;&#x7840;</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#&#x52A0;&#x8F7D;resnet50&#x6A21;&#x578B;</span></span><br><span class="line">_, C2, C3, C4, C5 = resnet_graph(input_image, config.BACKBONE,</span><br><span class="line">                                     stage5=<span class="keyword">True</span>, train_bn=config.TRAIN_BN)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">P5 = KL.Conv2D(config.TOP_DOWN_PYRAMID_SIZE, (<span class="number">1</span>, <span class="number">1</span>), name=<span class="string">&apos;fpn_c5p5&apos;</span>)(C5)</span><br><span class="line">P4 = KL.Add(name=<span class="string">&quot;fpn_p4add&quot;</span>)([</span><br><span class="line">    KL.UpSampling2D(size=(<span class="number">2</span>, <span class="number">2</span>), name=<span class="string">&quot;fpn_p5upsampled&quot;</span>)(P5),</span><br><span class="line">    KL.Conv2D(config.TOP_DOWN_PYRAMID_SIZE, (<span class="number">1</span>, <span class="number">1</span>), name=<span class="string">&apos;fpn_c4p4&apos;</span>)(C4)])</span><br><span class="line">P3 = KL.Add(name=<span class="string">&quot;fpn_p3add&quot;</span>)([</span><br><span class="line">    KL.UpSampling2D(size=(<span class="number">2</span>, <span class="number">2</span>), name=<span class="string">&quot;fpn_p4upsampled&quot;</span>)(P4),</span><br><span class="line">    KL.Conv2D(config.TOP_DOWN_PYRAMID_SIZE, (<span class="number">1</span>, <span class="number">1</span>), name=<span class="string">&apos;fpn_c3p3&apos;</span>)(C3)])</span><br><span class="line">P2 = KL.Add(name=<span class="string">&quot;fpn_p2add&quot;</span>)([</span><br><span class="line">    KL.UpSampling2D(size=(<span class="number">2</span>, <span class="number">2</span>), name=<span class="string">&quot;fpn_p3upsampled&quot;</span>)(P3),</span><br><span class="line">    KL.Conv2D(config.TOP_DOWN_PYRAMID_SIZE, (<span class="number">1</span>, <span class="number">1</span>), name=<span class="string">&apos;fpn_c2p2&apos;</span>)(C2)])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">P2 = KL.Conv2D(config.TOP_DOWN_PYRAMID_SIZE, (<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&quot;SAME&quot;</span>, name=<span class="string">&quot;fpn_p2&quot;</span>)(P2)</span><br><span class="line">P3 = KL.Conv2D(config.TOP_DOWN_PYRAMID_SIZE, (<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&quot;SAME&quot;</span>, name=<span class="string">&quot;fpn_p3&quot;</span>)(P3)</span><br><span class="line">P4 = KL.Conv2D(config.TOP_DOWN_PYRAMID_SIZE, (<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&quot;SAME&quot;</span>, name=<span class="string">&quot;fpn_p4&quot;</span>)(P4)</span><br><span class="line">P5 = KL.Conv2D(config.TOP_DOWN_PYRAMID_SIZE, (<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&quot;SAME&quot;</span>, name=<span class="string">&quot;fpn_p5&quot;</span>)(P5)</span><br><span class="line">P6 = KL.MaxPooling2D(pool_size=(<span class="number">1</span>, <span class="number">1</span>), strides=<span class="number">2</span>, name=<span class="string">&quot;fpn_p6&quot;</span>)(P5)</span><br><span class="line"></span><br><span class="line">rpn_feature_maps = [P2, P3, P4, P5, P6]</span><br><span class="line">mrcnn_feature_maps = [P2, P3, P4, P5]</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="2-Region-Proposal-Network-RPN"><a href="#2-Region-Proposal-Network-RPN" class="headerlink" title="2 Region Proposal Network(RPN)"></a>2 Region Proposal Network(RPN)</h3><h4 id="2-1-Anchors"><a href="#2-1-Anchors" class="headerlink" title="2.1 Anchors"></a>2.1 Anchors</h4><p>&#x5728;&#x505A;RPN&#x4E4B;&#x524D;&#xFF0C;&#x5148;&#x8981;&#x5BF9;feature_map&#x7684;&#x9009;&#x53D6;&#x951A;&#x6846;anchors&#xFF0C;anchor&#x5C31;&#x662F;&#x9009;&#x5B9A;&#x68C0;&#x6D4B;&#x76EE;&#x6807;&#x5B58;&#x5728;&#x7684;&#x8303;&#x56F4;&#x3002;</p>
+<p>&#x5BF9;rpn_feature_maps&#x9009;&#x53D6;&#x951A;&#x6846;,rpn_feature_maps&#x5171;&#x6709;5&#x4E2A;&#x7279;&#x5F81;&#x5C42;[p2,p3,p4,p5,p6], &#x6BCF;&#x4E2A;&#x7279;&#x5F81;&#x5C42;&#x7684;&#x5C3A;&#x5BF8;&#x4E0D;&#x540C;&#xFF0C;&#x9009;&#x53D6;&#x7684;&#x951A;&#x6846;&#x5927;&#x5C0F;&#x548C;&#x89C4;&#x5219;&#x4E5F;&#x4E0D;&#x540C;&#xFF0C;&#x6240;&#x4EE5;&#x8981;&#x5206;&#x5F00;&#x9009;&#x62E9;&#xFF1A;</p>
+<ol>
+<li>&#x6BCF;&#x4E2A;&#x7279;&#x5F81;&#x5C42;&#x5BF9;&#x5E94;&#x4E00;&#x79CD;&#x951A;&#x6846;&#x9009;&#x62E9;&#x89C4;&#x5219;(&#x4E0D;&#x540C;&#x7279;&#x5F81;&#x5C42;&#x7684;&#x56FE;&#x50CF;&#x5C3A;&#x5BF8;&#x4E0D;&#x540C;)</li>
+<li>&#x6240;&#x6709;&#x7279;&#x5F81;&#x5C42;&#x4E2D;&#x6BCF;&#x4E2A;&#x56FE;&#x7247;&#x7684;&#x6BCF;&#x4E2A;&#x50CF;&#x7D20;&#x70B9;&#x90FD;&#x8981;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x957F;&#x5BBD;&#x6BD4;&#x751F;&#x6210;3&#x4E2A;&#x951A;&#x6846;</li>
+</ol>
+<p>&#x6BD4;&#x5982;:&#x89C4;&#x5B9A;&#x957F;&#x5BBD;&#x6BD4;&#x4E3A;[1,2,0.5],&#x4E00;&#x4E2A;&#x50CF;&#x7D20;&#x70B9;&#x5BF9;&#x5E94;&#x7684;&#x951A;&#x6846;&#x5982;&#x4E0B;</p>
+<p><img src="/2018/10/14/mask-rcnn/./mask-rcnn/anchors.png" width="50%" height="50%"></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_anchors</span><span class="params">(scales, ratios, shape, feature_stride, anchor_stride)</span>:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    scales : &#x6570;&#x7EC4;&#xFF0C;&#x5B58;&#x653E;&#x4E0D;&#x540C;&#x5C3A;&#x5BF8;feature_map&#x5BF9;&#x5E94;&#x7684;&#x951A;&#x6846;&#x5C3A;&#x5BF8;, &#x5982;[8,16,32,64,128]</span></span><br><span class="line"><span class="string">    ratios : &#x6570;&#x7EC4;&#xFF0C;&#x5B58;&#x653E;&#x6BCF;&#x4E2A;&#x50CF;&#x7D20;&#x70B9;&#x5BF9;&#x5E94;&#x7684;&#x4E09;&#x4E2A;&#x951A;&#x6846;&#x7684;&#x957F;&#x5BBD;&#x6BD4;&#xFF0C;&#x5982;[0.5,1,2]</span></span><br><span class="line"><span class="string">    shape  : feature_map&#x7684;&#x5927;&#x5C0F;, &#x5982;[height,width]</span></span><br><span class="line"><span class="string">    feature_stride : &#x56FE;&#x7247;&#x7684;&#x7F29;&#x653E;&#x6BD4;&#xFF0C;&#x7528;&#x4E8E;&#x8FD8;&#x539F;&#x951A;&#x6846;&#x771F;&#x5B9E;&#x5927;&#x5C0F;&#x6BD4;&#x5982;&#x8BF4;&#x539F;&#x56FE;&#x7247;&#x662F;1024*1024,</span></span><br><span class="line"><span class="string">    				&#x800C;&#x4E0A;&#x8FF0;basebone&#x4E2D;p2&#x7684;&#x5927;&#x5C0F;&#x662F;128*128&#xFF0C;&#x5219;&#x7F29;&#x653E;&#x6BD4;&#x662F;8&#x3002;</span></span><br><span class="line"><span class="string">    anchor_stride : &#x50CF;&#x7D20;&#x70B9;&#x7684;&#x79FB;&#x52A8;&#x6B65;&#x957F;&#xFF0C;&#x771F;&#x5B9E;&#x60C5;&#x51B5;&#x662F;&#x5E76;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x7684;&#x50CF;&#x7D20;&#x70B9;&#x90FD;&#x8981;&#x9009;&#x951A;&#x6846;&#xFF0C;&#x53EF;&#x4EE5;</span></span><br><span class="line"><span class="string">    				&#x4EE5;&#x4E00;&#x5B9A;&#x6B65;&#x957F;&#x79FB;&#x52A8;&#xFF0C;&#x8DF3;&#x7740;&#x9009;&#x3002;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line">    scales, ratios = np.meshgrid(np.array(scales), np.array(ratios))</span><br><span class="line">    scales = scales.flatten()</span><br><span class="line">    ratios = ratios.flatten()</span><br><span class="line"></span><br><span class="line">    <span class="comment">#&#x6BD4;&#x5982;scale = 32,ratios=4, &#x8FD9;&#x4E2A;&#x951A;&#x6846;&#x5C31;&#x662F;&#x957F;128&#xFF0C;&#x5BBD;16</span></span><br><span class="line">    heights = scales / np.sqrt(ratios)</span><br><span class="line">    widths = scales * np.sqrt(ratios)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># &#x771F;&#x5B9E;&#x50CF;&#x7D20;&#x70B9;&#x5206;&#x5E03;</span></span><br><span class="line">    shifts_y = np.arange(<span class="number">0</span>, shape[<span class="number">0</span>], anchor_stride) * feature_stride</span><br><span class="line">    shifts_x = np.arange(<span class="number">0</span>, shape[<span class="number">1</span>], anchor_stride) * feature_stride</span><br><span class="line">    shifts_x, shifts_y = np.meshgrid(shifts_x, shifts_y)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># &#x7EC4;&#x5408;&#x4E0A;&#x9762;&#x4E24;&#x4E2A;&#xFF0C;&#x751F;&#x6210;&#x4E00;&#x7CFB;&#x5217;&#x7684;(x,y,h,w)&#x5F62;&#x5F0F;&#x7684;&#x951A;&#x6846;</span></span><br><span class="line">    box_widths, box_centers_x = np.meshgrid(widths, shifts_x)</span><br><span class="line">    box_heights, box_centers_y = np.meshgrid(heights, shifts_y)</span><br><span class="line">    box_centers = np.stack(</span><br><span class="line">        [box_centers_y, box_centers_x], axis=<span class="number">2</span>).reshape([<span class="number">-1</span>, <span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># &#x5C06;(x,y,h,w)&#x7684;&#x5F62;&#x5F0F;&#x8F6C;&#x6362;&#x6210;,&#x5DE6;&#x4E0A;&#x89D2;&#x548C;&#x53F3;&#x4E0B;&#x89D2;&#x5750;&#x6807;&#x7684;&#x5F62;&#x5F0F;(x1,y1,x2,y2)</span></span><br><span class="line">    box_sizes = np.stack([box_heights, box_widths], axis=<span class="number">2</span>).reshape([<span class="number">-1</span>, <span class="number">2</span>])</span><br><span class="line">    boxes = np.concatenate([box_centers - <span class="number">0.5</span> * box_sizes,</span><br><span class="line">                            box_centers + <span class="number">0.5</span> * box_sizes], axis=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> boxes</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6700;&#x540E;&#x9700;&#x8981;&#x751F;&#x6210;&#x7684;&#x951A;&#x6846;&#x6570;&#x636E;&#x7684;shape &#x4E3A; :  [N,(x1,y1,x2,y2)]    , N&#x4E3A;&#x951A;&#x6846;&#x603B;&#x6570;</p>
+<h4 id="2-2-Region-Proposal"><a href="#2-2-Region-Proposal" class="headerlink" title="2.2 Region Proposal"></a>2.2 Region Proposal</h4><p>&#x5728;&#x751F;&#x6210;&#x951A;&#x6846;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;&#x5982;&#x679C;&#x4E0A;&#x8FF0;&#x751F;&#x6210;&#x7684;&#x6240;&#x6709;&#x951A;&#x6846;&#x90FD;&#x7528;&#x4E8E;&#x540E;&#x7EED;&#x7684;&#x5B66;&#x4E60;&#xFF0C;&#x662F;&#x5341;&#x5206;&#x591A;&#x4F59;&#x7684;&#x3002;&#x56E0;&#x4E3A;&#x80CC;&#x666F;&#x7684;&#x951A;&#x6846;&#x5360;&#x4E86;&#x5927;&#x90E8;&#x5206;&#x3002;</p>
+<p>&#x5047;&#x8BBE;&#x4EE5;&#x4E0A;&#x8FF0;&#x7684;feature_map&#x4E3A;&#x4F8B;&#xFF0C;&#x951A;&#x70B9;&#x6B65;&#x957F;&#x4E3A;1&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x603B;&#x5171;&#x4F1A;&#x751F;&#x6210;(128*128+64*64+32*32+16*16+8*8)*3 = 65472&#x7684;&#x951A;&#x6846;&#x6570;</p>
+<p>Region Proposal&#x7684;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x4E3A;&#x4E86;&#x5728;<strong>&#x5982;&#x6B64;&#x5E9E;&#x5927;&#x7684;&#x6570;&#x91CF;&#x7684;&#x951A;&#x6846;&#x6570;&#x4E2D;&#x5BFB;&#x627E;&#x6709;&#x7528;&#x7684;&#xFF0C;&#x4F20;&#x7ED9;&#x540E;&#x7EED;&#x8BAD;&#x7EC3;</strong>&#x3002;</p>
+<p><strong>Step1</strong></p>
+<p><img src="/2018/10/14/mask-rcnn/./mask-rcnn/rpn1.png"></p>
+<p>&#x5DE6;&#x4FA7;&#xFF1A;</p>
+<p>&#x5176;&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x5206;&#x8FA8;&#x51FA;&#x54EA;&#x4E9B;anchors&#x662F;&#x80CC;&#x666F;&#xFF0C;&#x54EA;&#x4E9B;anchors&#x662F;&#x7269;&#x4F53;&#x3002;</p>
+<p>&#x901A;&#x8FC7;&#x8BAD;&#x7EC3;&#x5377;&#x79EF;&#x5C42;(conv:1/1/6)&#x6765;&#x5B9E;&#x73B0;&#xFF0C;(conv:1/1/6)&#x5B9E;&#x9645;&#x4E0A;&#x662F;(conv:1/1/2*3)&#xFF0C;&#x5373;&#x5BF9;&#x6BCF;&#x4E00;&#x4E2A;&#x50CF;&#x7D20;&#x70B9;&#x7684;&#x4E09;&#x4E2A;&#x951A;&#x6846;&#x90FD;&#x751F;&#x6210;&#x4E24;&#x4E2A;&#x503C;:1.&#x8FD9;&#x4E2A;&#x951A;&#x6846;&#x662F;&#x80CC;&#x666F;&#x7684;&#x6982;&#x7387; 2.&#x8FD9;&#x4E2A;&#x951A;&#x6846;&#x662F;&#x7269;&#x4F53;&#x7684;&#x6982;&#x7387;&#x3002;&#x6700;&#x540E;&#x901A;&#x8FC7;reshape&#x8F6C;&#x6362;&#x6210;[batch_size,anchors_num(&#x6240;&#x6709;&#x951A;&#x6846;&#x6570;&#x91CF;),2] &#x7684;&#x5F62;&#x5F0F;&#xFF0C;&#x8BB0;&#x505A;rpn_probs</p>
+<p>&#x53F3;&#x4FA7;&#xFF1A;</p>
+<p>&#x5176;&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x751F;&#x6210;&#x6BCF;&#x4E2A;&#x951A;&#x6846;&#x56DB;&#x4E2A;&#x5750;&#x6807;&#x70B9;&#x7684;&#x4FEE;&#x6B63;&#x91CF;&#xFF0C;&#x5373;&#x8D4B;&#x4E88;&#x6240;&#x6709;&#x951A;&#x6846;&#x81EA;&#x52A8;&#x4FEE;&#x6B63;&#x957F;&#x5BBD;&#x7684;&#x80FD;&#x529B;&#x3002;</p>
+<p>&#x901A;&#x8FC7;&#x8BAD;&#x7EC3;&#x5377;&#x79EF;&#x5C42;(conv:1/1/12)&#x6765;&#x5B9E;&#x73B0;&#xFF0C;(conv:1/1/12)&#x5B9E;&#x9645;&#x4E0A;&#x662F;(conv:1/1/4*3)&#xFF0C;&#x5373;&#x6BCF;&#x4E00;&#x4E2A;&#x50CF;&#x7D20;&#x70B9;&#x4E09;&#x4E2A;&#x951A;&#x6846;&#x90FD;&#x8981;&#x751F;&#x6210;(x1,y1,x2,y2)&#x5BF9;&#x5E94;&#x7684;&#x4FEE;&#x6B63;&#x91CF;(dx1.dy1,dx2,dy2)&#xFF0C;&#x6700;&#x540E;reshape&#x6210;[batch_size,anchors_num(&#x6240;&#x6709;&#x951A;&#x6846;&#x6570;&#x91CF;),4]&#x7684;&#x5F62;&#x5F0F;&#xFF0C;&#x8BB0;&#x505A;rpn_probs</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rpn_graph</span><span class="params">(feature_map, anchors_per_location, anchor_stride)</span>:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    feature_map : [p2,p3,p4,p5,p6]</span></span><br><span class="line"><span class="string">    anchors_per_location : &#x6BCF;&#x4E2A;&#x50CF;&#x7D20;&#x70B9;&#x5BF9;&#x5E94;&#x7684;&#x951A;&#x6846;&#x6570;&#xFF0C;&#x9ED8;&#x8BA4;&#x662F;3&#x4E2A;</span></span><br><span class="line"><span class="string">    anchor_stride : &#x50CF;&#x7D20;&#x70B9;&#x7684;&#x79FB;&#x52A8;&#x6B65;&#x957F;&#xFF0C;&#x771F;&#x5B9E;&#x60C5;&#x51B5;&#x662F;&#x5E76;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x7684;&#x50CF;&#x7D20;&#x70B9;&#x90FD;&#x8981;&#x9009;&#x951A;&#x6846;&#xFF0C;&#x53EF;&#x4EE5;</span></span><br><span class="line"><span class="string">    				&#x4EE5;&#x4E00;&#x5B9A;&#x6B65;&#x957F;&#x79FB;&#x52A8;&#xFF0C;&#x8DF3;&#x7740;&#x9009;&#x3002;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># &#x4E0A;&#x8FF0;&#x7684;3*3*512&#x7684;&#x5377;&#x79EF;</span></span><br><span class="line">    shared = KL.Conv2D(<span class="number">512</span>, (<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">&apos;same&apos;</span>, activation=<span class="string">&apos;relu&apos;</span>,</span><br><span class="line">                       strides=anchor_stride,</span><br><span class="line">                       name=<span class="string">&apos;rpn_conv_shared&apos;</span>)(feature_map)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># &#x5DE6;&#x4FA7;&#x7B2C;&#x4E00;&#x4E2A;1*1*6&#x7684;&#x5377;&#x79EF;</span></span><br><span class="line">    x = KL.Conv2D(<span class="number">2</span> * anchors_per_location, (<span class="number">1</span>, <span class="number">1</span>), padding=<span class="string">&apos;valid&apos;</span>,</span><br><span class="line">                  activation=<span class="string">&apos;linear&apos;</span>, name=<span class="string">&apos;rpn_class_raw&apos;</span>)(shared)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># &#x5DE6;&#x4FA7;softmax&#x524D;&#x7684;reshape</span></span><br><span class="line">    rpn_class_logits = KL.Lambda(</span><br><span class="line">        <span class="keyword">lambda</span> t: tf.reshape(t, [tf.shape(t)[<span class="number">0</span>], <span class="number">-1</span>, <span class="number">2</span>]))(x)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># softmax</span></span><br><span class="line">    rpn_probs = KL.Activation(</span><br><span class="line">        <span class="string">&quot;softmax&quot;</span>, name=<span class="string">&quot;rpn_class_xxx&quot;</span>)(rpn_class_logits)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># &#x53F3;&#x4FA7;&#x7B2C;&#x4E00;&#x4E2A;1*1*12&#x7684;&#x5377;&#x79EF;</span></span><br><span class="line">    x = KL.Conv2D(anchors_per_location * <span class="number">4</span>, (<span class="number">1</span>, <span class="number">1</span>), padding=<span class="string">&quot;valid&quot;</span>,</span><br><span class="line">                  activation=<span class="string">&apos;linear&apos;</span>, name=<span class="string">&apos;rpn_bbox_pred&apos;</span>)(shared)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># &#x53F3;&#x4FA7;reshape</span></span><br><span class="line">    rpn_bbox = KL.Lambda(<span class="keyword">lambda</span> t: tf.reshape(t, [tf.shape(t)[<span class="number">0</span>], <span class="number">-1</span>, <span class="number">4</span>]))(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> [rpn_class_logits, rpn_probs, rpn_bbox]</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>Step2</strong></p>
+<p>step1&#x4E2D;&#x5F97;&#x5230;&#x4E86;&#x4E24;&#x4E2A;&#x8F93;&#x51FA;rpn_probs&#x548C;rpn_probs&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x4E24;&#x4E2A;&#x8F93;&#x51FA;&#xFF0C;&#x6765;&#x9009;&#x62E9;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7684;&#x951A;&#x6846;&#x3002;</p>
+<p><img src="/2018/10/14/mask-rcnn/./mask-rcnn/rpn2.png"></p>
+<ol>
+<li>&#x6839;&#x636E;rpn_probs&#xFF0C;&#x7528;&#x951A;&#x6846;&#x5C5E;&#x4E8E;&#x7269;&#x4F53;&#x7684;&#x6982;&#x7387;&#xFF0C;&#x9009;&#x62E9;&#x6982;&#x7387;&#x6700;&#x5927;&#x7684;&#x82E5;&#x5E72;&#x4E2A;&#x951A;&#x6846;</li>
+<li>&#x901A;&#x8FC7;rpn_bbox&#x4FEE;&#x6B63;&#x9009;&#x51FA;&#x6765;&#x7684;&#x951A;&#x6846;</li>
+<li>&#x505A;nms(&#x975E;&#x6781;&#x5927;&#x6291;&#x5236;)&#xFF0C;&#x6839;&#x636E;IoU&#x9009;&#x51FA;2000&#x4E2A;anchors</li>
+</ol>
+<blockquote>
+<p>&#x975E;&#x6781;&#x5927;&#x6291;&#x5236;&#xFF1A;</p>
+<p>&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x53BB;&#x9664;&#x5197;&#x4F59;&#x7684;&#x951A;&#x6846;&#xFF0C;&#x56E0;&#x4E3A;&#x4E0D;&#x505A;nms&#x7684;&#x8BDD;&#xFF0C;&#x5F88;&#x6709;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x73B0;&#x56FE;&#x7247;&#x4E2D;&#x67D0;&#x5757;&#x533A;&#x57DF;&#x662F;&#x7269;&#x4F53;,&#x90A3;&#x4E48;&#x8FD9;&#x533A;&#x57DF;&#x5185;&#x7684;&#x951A;&#x6846;rpn_probs&#x90FD;&#x5F88;&#x5927;&#xFF0C;&#x5C31;&#x53EF;&#x80FD;&#x9009;&#x51FA;&#x4E00;&#x5806;&#x91CD;&#x53E0;&#x5EA6;&#x5F88;&#x5927;&#x7684;&#x951A;&#x6846;&#x3002;&#x8FD9;&#x4E9B;&#x662F;&#x5197;&#x4F59;&#x7684;&#x3002;</p>
+<p>&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ol>
+<li>&#x5C06;&#x951A;&#x6846;&#x6709;&#x5E8F;&#x6392;&#x5217;</li>
+<li>&#x9009;&#x4E2D;&#x4E00;&#x4E2A;&#x5F97;&#x5206;&#x6700;&#x9AD8;&#x7684;&#x951A;&#x6846;x&#xFF0C;&#x4E14;&#x672A;&#x5904;&#x7406;&#x8FC7;&#x7684;&#x951A;&#x6846;</li>
+<li>&#x5C06;&#x5176;&#x4F59;&#x951A;&#x6846;&#x4E2D;&#x4E0E;x&#x7684;&#x91CD;&#x53E0;&#x5EA6;IoU&#x5927;&#x4E8E;&#x4E00;&#x5B9A;&#x9608;&#x503C;&#x7684;&#x951A;&#x6846;&#x90FD;&#x5220;&#x9664;</li>
+<li>&#x6807;&#x8BB0;x&#x4E3A;&#x5904;&#x7406;&#x8FC7;&#x7684;&#x951A;&#x6846;&#xFF0C;&#x56DE;&#x5230;2</li>
+</ol>
+</blockquote>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&apos;&apos;&apos;</span></span><br><span class="line"><span class="string">	scores : &#x6240;&#x6709;&#x951A;&#x6846;&#x7684;&#x662F;&#x7269;&#x4F53;&#x7684;&#x5206;&#x6570;&#xFF0C;&#x5728;rpn_probs&#x4E2D;&#x83B7;&#x5F97;</span></span><br><span class="line"><span class="string">	deltas : &#x6240;&#x6709;&#x951A;&#x6846;&#x7684;&#x4FEE;&#x6B63;&#x91CF;&#xFF0C;&#x5728;rpn_bbox&#x4E2D;&#x83B7;&#x5F97;</span></span><br><span class="line"><span class="string">	anchors: &#x6240;&#x6709;&#x951A;&#x6846;&#x6570;&#x636E;&#xFF0C;&#x7531;2.1&#x7684;generate_anchors&#x83B7;&#x5F97;</span></span><br><span class="line"><span class="string">&apos;&apos;&apos;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># top_k&#x6B65;&#x9AA4;&#xFF0C;self.config.PRE_NMS_LIMIT&#x4E3A;k</span></span><br><span class="line">pre_nms_limit = tf.minimum(self.config.PRE_NMS_LIMIT, tf.shape(anchors)[<span class="number">1</span>])</span><br><span class="line">ix = tf.nn.top_k(scores, pre_nms_limit, sorted=<span class="keyword">True</span>,</span><br><span class="line">                 name=<span class="string">&quot;top_anchors&quot;</span>).indices</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">scores = utils.batch_slice([scores, ix], <span class="keyword">lambda</span> x, y: tf.gather(x, y),</span><br><span class="line">                           self.config.IMAGES_PER_GPU)</span><br><span class="line">deltas = utils.batch_slice([deltas, ix], <span class="keyword">lambda</span> x, y: tf.gather(x, y),</span><br><span class="line">                           self.config.IMAGES_PER_GPU)</span><br><span class="line">pre_nms_anchors = utils.batch_slice([anchors, ix], <span class="keyword">lambda</span> a, x: tf.gather(a, x),</span><br><span class="line">                            self.config.IMAGES_PER_GPU,</span><br><span class="line">                            names=[<span class="string">&quot;pre_nms_anchors&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x901A;&#x8FC7;&#x4FEE;&#x6B63;&#x91CF;deltas&#x4FEE;&#x6B63;top_k&#x9009;&#x51FA;&#x6765;&#x7684;&#x951A;&#x6846;</span></span><br><span class="line">boxes = utils.batch_slice([pre_nms_anchors, deltas],</span><br><span class="line">                          <span class="keyword">lambda</span> x, y: apply_box_deltas_graph(x, y),</span><br><span class="line">                          self.config.IMAGES_PER_GPU,</span><br><span class="line">                          names=[<span class="string">&quot;refined_anchors&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x5224;&#x65AD;&#x4FEE;&#x6B63;&#x540E;&#x7684;&#x951A;&#x6846;&#x662F;&#x5426;&#x8D85;&#x51FA;&#x8FB9;&#x754C;&#xFF0C;&#x8D85;&#x51FA;&#x5C31;&#x5254;&#x9664;</span></span><br><span class="line">window = np.array([<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>], dtype=np.float32)</span><br><span class="line">boxes = utils.batch_slice(boxes,</span><br><span class="line">                          <span class="keyword">lambda</span> x: clip_boxes_graph(x, window),</span><br><span class="line">                          self.config.IMAGES_PER_GPU,</span><br><span class="line">                          names=[<span class="string">&quot;refined_anchors_clipped&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#nms</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nms</span><span class="params">(boxes, scores)</span>:</span></span><br><span class="line">    indices = tf.image.non_max_suppression(</span><br><span class="line">        boxes, scores, self.proposal_count,</span><br><span class="line">        self.nms_threshold, name=<span class="string">&quot;rpn_non_max_suppression&quot;</span>)</span><br><span class="line">    proposals = tf.gather(boxes, indices)</span><br><span class="line">    padding = tf.maximum(self.proposal_count - tf.shape(proposals)[<span class="number">0</span>], <span class="number">0</span>)</span><br><span class="line">    proposals = tf.pad(proposals, [(<span class="number">0</span>, padding), (<span class="number">0</span>, <span class="number">0</span>)])</span><br><span class="line">    <span class="keyword">return</span> proposals</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">proposals = utils.batch_slice([boxes, scores], nms,</span><br><span class="line">                              self.config.IMAGES_PER_GPU)</span><br><span class="line"><span class="keyword">return</span> proposals</span><br></pre></td></tr></tbody></table></figure>
+<p>&#x6700;&#x540E;&#x8FD4;&#x56DE;2000&#x4E2A;&#x951A;&#x6846;&#xFF0C;&#x8BB0;&#x505A;rpn_rois</p>
+<h3 id="2-3-Network-Heads"><a href="#2-3-Network-Heads" class="headerlink" title="2.3 Network Heads"></a><strong>2.3 Network Heads</strong></h3><p>Network Heads&#x5206;&#x6210;&#x4E24;&#x4E2A;&#x4E3B;&#x8981;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x8BA1;&#x7B97;&#x4F20;&#x7EDF;&#x76EE;&#x6807;&#x68C0;&#x6D4B;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x5305;&#x62EC;&#x951A;&#x6846;&#x548C;&#x7C7B;&#x522B;&#xFF0C;&#x53E6;&#x4E00;&#x90E8;&#x662F;mask r-cnn&#x7684;&#x7279;&#x8272;&#xFF0C;&#x8BA1;&#x7B97;&#x7528;&#x4E8E;&#x5206;&#x5272;&#x56FE;&#x50CF;&#x7684;mask</p>
+<h4 id="2-3-1-&#x76EE;&#x6807;&#x68C0;&#x6D4B;"><a href="#2-3-1-&#x76EE;&#x6807;&#x68C0;&#x6D4B;" class="headerlink" title="2.3.1 &#x76EE;&#x6807;&#x68C0;&#x6D4B;"></a>2.3.1 &#x76EE;&#x6807;&#x68C0;&#x6D4B;</h4><h4 id="2-3-2-&#x56FE;&#x50CF;&#x5206;&#x5272;"><a href="#2-3-2-&#x56FE;&#x50CF;&#x5206;&#x5272;" class="headerlink" title="2.3.2 &#x56FE;&#x50CF;&#x5206;&#x5272;"></a>2.3.2 &#x56FE;&#x50CF;&#x5206;&#x5272;</h4><h3 id="2-4-Loss"><a href="#2-4-Loss" class="headerlink" title="2.4 Loss"></a><strong>2.4 Loss</strong></h3><h3 id="2-5-&#x603B;&#x7ED3;"><a href="#2-5-&#x603B;&#x7ED3;" class="headerlink" title="2.5 &#x603B;&#x7ED3;"></a><strong>2.5 &#x603B;&#x7ED3;</strong></h3><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Chen Zhou
+  </li>
+
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/14/mybatis-generator/" rel="next" title="mybatis逆向工程 配置">
+                <i class="fa fa-chevron-left"></i> mybatis逆向工程 配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="Chen Zhou" />
+            
+              <p class="site-author-name" itemprop="name">Chen Zhou</p>
+              <p class="site-description motion-element" itemprop="description">Get busy living, or get busy dying.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chenzhou9513" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="chenzhou9513@zju.edu.cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mask-RCNN"><span class="nav-number">1.</span> <span class="nav-text">Mask RCNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络结构"><span class="nav-number">1.2.</span> <span class="nav-text">网络结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Basebone"><span class="nav-number">1.2.1.</span> <span class="nav-text">1 Basebone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Region-Proposal-Network-RPN"><span class="nav-number">1.2.2.</span> <span class="nav-text">2 Region Proposal Network(RPN)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-Anchors"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2.1 Anchors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-Region-Proposal"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2.2 Region Proposal</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Network-Heads"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 Network Heads</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-目标检测"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">2.3.1 目标检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-图像分割"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2.3.2 图像分割</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Loss"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 Loss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-总结"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chen Zhou</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_sphere.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
