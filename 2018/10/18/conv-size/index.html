@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="document.querySelectorAll(&apos;.github-emoji&apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.createElement(&apos;img&apos;);             img.style">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+<meta name="description" content="带padding的卷积输出大小计算简介🌚看cs231n发现，和tensorflow的padding不大一样 归纳一下带padding的卷积的一些大小计算问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="带padding的卷积输出大小计算">
+<meta property="og:url" content="http://yoursite.com/2018/10/18/conv-size/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="document.querySelectorAll(&apos;.github-emoji&apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.createElement(&apos;img&apos;);             img.style">
+<meta property="og:description" content="带padding的卷积输出大小计算简介🌚看cs231n发现，和tensorflow的padding不大一样 归纳一下带padding的卷积的一些大小计算问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-07T15:01:30.939Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/18/conv-size/padding.png">
+<meta property="og:updated_time" content="2018-10-18T12:09:20.463Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分类">
-<meta name="twitter:description" content="document.querySelectorAll(&apos;.github-emoji&apos;)           .forEach(el =&amp;gt; {             if (!el.dataset.src) { return; }             const img = document.createElement(&apos;img&apos;);             img.style">
+<meta name="twitter:title" content="带padding的卷积输出大小计算">
+<meta name="twitter:description" content="带padding的卷积输出大小计算简介🌚看cs231n发现，和tensorflow的padding不大一样 归纳一下带padding的卷积的一些大小计算问题">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/18/conv-size/padding.png">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/18/conv-size/"/>
 
 
 
 
 
-  <title>分类 | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>带padding的卷积输出大小计算 | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -240,40 +242,192 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/conv-size/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chen Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">分类</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="category-all-page">
-            <div class="category-all-title">
-                目前共计 5 个分类
-            </div>
-            <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deep-Learning/">Deep Learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Machine-Learning/">Machine Learning</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/cs231n/">cs231n</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/j2ee/">j2ee</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mpi/">mpi</a><span class="category-list-count">1</span></li></ul>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">带padding的卷积输出大小计算</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T19:30:45+08:00">
+                2018-10-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x8F93;&#x51FA;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;"><a href="#&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x8F93;&#x51FA;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;" class="headerlink" title="&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x8F93;&#x51FA;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;"></a>&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x8F93;&#x51FA;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;</h1><h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p>&#x1F31A;&#x770B;cs231n&#x53D1;&#x73B0;&#xFF0C;&#x548C;tensorflow&#x7684;padding&#x4E0D;&#x5927;&#x4E00;&#x6837;</p>
+<p>&#x5F52;&#x7EB3;&#x4E00;&#x4E0B;&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x7684;&#x4E00;&#x4E9B;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;&#x95EE;&#x9898;</p>
+<a id="more"></a>
+<h2 id="CS231n-&#x5377;&#x79EF;"><a href="#CS231n-&#x5377;&#x79EF;" class="headerlink" title="CS231n &#x5377;&#x79EF;"></a>CS231n &#x5377;&#x79EF;</h2><p>cs231n&#x7684;&#x8BA1;&#x7B97;&#x516C;&#x5F0F;&#xFF1A;</p>
+<p>w:&#x539F;&#x5C3A;&#x5BF8;</p>
+<p>padding: padding&#x7684;&#x5927;&#x5C0F;</p>
+<p>f:&#x5377;&#x79EF;&#x6838;&#x7684;&#x5C3A;&#x5BF8; </p>
+<center>$$n = \frac{w+2padding-f}{s}+1$$</center>
+
+<p><img src="/2018/10/18/conv-size/padding.png"></p>
+<p>&#x5982;&#x4E0A;&#x56FE;&#xFF0C;padding&#x662F;&#x4E24;&#x8FB9;&#x90FD;&#x52A0;&#xFF0C;&#x4E0D;&#x6B62;&#x4E00;&#x8FB9;</p>
+<h2 id="Tensorflow-&#x5377;&#x79EF;"><a href="#Tensorflow-&#x5377;&#x79EF;" class="headerlink" title="Tensorflow &#x5377;&#x79EF;"></a>Tensorflow &#x5377;&#x79EF;</h2><p>tensorflow&#x91CC;&#x7684;same padding&#x4E0E;&#x4E0A;&#x8FF0;&#x7684;&#x4E0D;&#x540C;&#xFF0C;&#x662F;&#x53EA;&#x6709;&#x4E00;&#x8FB9;&#x7684;padding&#x3002;</p>
+<blockquote>
+<p><strong>SAME padding</strong> sometimes called <strong>HALF padding</strong>. It is called <em>SAME</em> because for a convolution with a stride=1, (or for pooling) it should produce output of the same size as the input. </p>
+</blockquote>
+<p>&#x516C;&#x5F0F;&#xFF1A;</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">VALID&#xFF1A;</span><br><span class="line">w = &#xFF08;w_old - f + 1&#xFF09;/ stride &#xFF08;&#x7ED3;&#x679C;&#x5411;&#x4E0A;&#x53D6;&#x6574;&#xFF09;</span><br><span class="line">h = &#xFF08;h_old - f + 1&#xFF09;/ stride &#xFF08;&#x7ED3;&#x679C;&#x5411;&#x4E0A;&#x53D6;&#x6574;&#xFF09;</span><br><span class="line">SAME&#xFF1A;</span><br><span class="line">w = w_old / stride &#xFF08;&#x7ED3;&#x679C;&#x5411;&#x4E0A;&#x53D6;&#x6574;&#xFF09;</span><br><span class="line">h = h_old / stride &#xFF08;&#x7ED3;&#x679C;&#x5411;&#x4E0A;&#x53D6;&#x6574;&#xFF09;</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Chen Zhou
+  </li>
+
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/14/mask-rcnn/" rel="next" title="Mask R-CNN">
+                <i class="fa fa-chevron-left"></i> Mask R-CNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -306,8 +460,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -378,6 +541,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#带padding的卷积输出大小计算"><span class="nav-number">1.</span> <span class="nav-text">带padding的卷积输出大小计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CS231n-卷积"><span class="nav-number">1.2.</span> <span class="nav-text">CS231n 卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorflow-卷积"><span class="nav-number">1.3.</span> <span class="nav-text">Tensorflow 卷积</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
