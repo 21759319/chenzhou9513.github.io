@@ -79,19 +79,17 @@
 
 
 
-<meta name="description" content="带padding的卷积输出大小计算简介🌚看cs231n发现，和tensorflow的padding不大一样 归纳一下带padding的卷积的一些大小计算问题">
+<meta name="description" content="hyperledger composer 安装踩坑简介😫 阿里云服务器下安装composer 过程(踩坑) 部署环境：阿里云镜像：       ubuntu_14_0405_64_20G_alibase_20170824.vhd规格:       ecs.t5-lc1m2.small">
 <meta property="og:type" content="article">
-<meta property="og:title" content="带padding的卷积输出大小计算">
-<meta property="og:url" content="http://yoursite.com/2018/10/18/conv-size/index.html">
+<meta property="og:title" content="hyperledger composer 安装采坑">
+<meta property="og:url" content="http://yoursite.com/2018/11/05/composerinstall/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="带padding的卷积输出大小计算简介🌚看cs231n发现，和tensorflow的padding不大一样 归纳一下带padding的卷积的一些大小计算问题">
+<meta property="og:description" content="hyperledger composer 安装踩坑简介😫 阿里云服务器下安装composer 过程(踩坑) 部署环境：阿里云镜像：       ubuntu_14_0405_64_20G_alibase_20170824.vhd规格:       ecs.t5-lc1m2.small">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/10/18/conv-size/padding.png">
-<meta property="og:updated_time" content="2018-11-03T07:34:08.494Z">
+<meta property="og:updated_time" content="2018-11-05T09:06:35.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="带padding的卷积输出大小计算">
-<meta name="twitter:description" content="带padding的卷积输出大小计算简介🌚看cs231n发现，和tensorflow的padding不大一样 归纳一下带padding的卷积的一些大小计算问题">
-<meta name="twitter:image" content="http://yoursite.com/2018/10/18/conv-size/padding.png">
+<meta name="twitter:title" content="hyperledger composer 安装采坑">
+<meta name="twitter:description" content="hyperledger composer 安装踩坑简介😫 阿里云服务器下安装composer 过程(踩坑) 部署环境：阿里云镜像：       ubuntu_14_0405_64_20G_alibase_20170824.vhd规格:       ecs.t5-lc1m2.small">
 
 
 
@@ -121,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/18/conv-size/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/11/05/composerinstall/"/>
 
 
 
 
 
-  <title>带padding的卷积输出大小计算 | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>hyperledger composer 安装采坑 | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -254,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/18/conv-size/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/composerinstall/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Chen Zhou">
@@ -271,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">带padding的卷积输出大小计算</h1>
+          <h1 class="post-title" itemprop="name headline">hyperledger composer 安装采坑</h1>
         
 
         <div class="post-meta">
@@ -283,8 +281,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T19:30:45+08:00">
-                2018-10-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T16:55:29+08:00">
+                2018-11-05
               </time>
             
 
@@ -306,8 +304,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
+                  <a href="/categories/Block-Chain/" itemprop="url" rel="index">
+                    <span itemprop="name">Block Chain</span>
                   </a>
                 </span>
 
@@ -348,23 +346,12 @@
       
 
       
-        <h1 id="&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x8F93;&#x51FA;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;"><a href="#&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x8F93;&#x51FA;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;" class="headerlink" title="&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x8F93;&#x51FA;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;"></a>&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x8F93;&#x51FA;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;</h1><h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p>&#x1F31A;&#x770B;cs231n&#x53D1;&#x73B0;&#xFF0C;&#x548C;tensorflow&#x7684;padding&#x4E0D;&#x5927;&#x4E00;&#x6837;</p>
-<p>&#x5F52;&#x7EB3;&#x4E00;&#x4E0B;&#x5E26;padding&#x7684;&#x5377;&#x79EF;&#x7684;&#x4E00;&#x4E9B;&#x5927;&#x5C0F;&#x8BA1;&#x7B97;&#x95EE;&#x9898;</p>
+        <h1 id="hyperledger-composer-&#x5B89;&#x88C5;&#x8E29;&#x5751;"><a href="#hyperledger-composer-&#x5B89;&#x88C5;&#x8E29;&#x5751;" class="headerlink" title="hyperledger composer &#x5B89;&#x88C5;&#x8E29;&#x5751;"></a>hyperledger composer &#x5B89;&#x88C5;&#x8E29;&#x5751;</h1><h2 id="&#x7B80;&#x4ECB;"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</h2><p>&#x1F62B; &#x963F;&#x91CC;&#x4E91;&#x670D;&#x52A1;&#x5668;&#x4E0B;&#x5B89;&#x88C5;composer &#x8FC7;&#x7A0B;(&#x8E29;&#x5751;)</p>
+<p>&#x90E8;&#x7F72;&#x73AF;&#x5883;&#xFF1A;&#x963F;&#x91CC;&#x4E91;<br>&#x955C;&#x50CF;&#xFF1A;       ubuntu_14_0405_64_20G_alibase_20170824.vhd<br>&#x89C4;&#x683C;:       ecs.t5-lc1m2.small</p>
 <a id="more"></a>
-<h2 id="CS231n-&#x5377;&#x79EF;"><a href="#CS231n-&#x5377;&#x79EF;" class="headerlink" title="CS231n &#x5377;&#x79EF;"></a>CS231n &#x5377;&#x79EF;</h2><p>cs231n&#x7684;&#x8BA1;&#x7B97;&#x516C;&#x5F0F;&#xFF1A;</p>
-<p>w:&#x539F;&#x5C3A;&#x5BF8;</p>
-<p>padding: padding&#x7684;&#x5927;&#x5C0F;</p>
-<p>f:&#x5377;&#x79EF;&#x6838;&#x7684;&#x5C3A;&#x5BF8; </p>
-<center>$$n = \frac{w+2padding-f}{s}+1$$</center>
-
-<p><img src="/2018/10/18/conv-size/padding.png"></p>
-<p>&#x5982;&#x4E0A;&#x56FE;&#xFF0C;padding&#x662F;&#x4E24;&#x8FB9;&#x90FD;&#x52A0;&#xFF0C;&#x4E0D;&#x6B62;&#x4E00;&#x8FB9;</p>
-<h2 id="Tensorflow-&#x5377;&#x79EF;"><a href="#Tensorflow-&#x5377;&#x79EF;" class="headerlink" title="Tensorflow &#x5377;&#x79EF;"></a>Tensorflow &#x5377;&#x79EF;</h2><p>tensorflow&#x91CC;&#x7684;same padding&#x4E0E;&#x4E0A;&#x8FF0;&#x7684;&#x4E0D;&#x540C;&#xFF0C;&#x662F;&#x53EA;&#x6709;&#x4E00;&#x8FB9;&#x7684;padding&#x3002;</p>
-<blockquote>
-<p><strong>SAME padding</strong> sometimes called <strong>HALF padding</strong>. It is called <em>SAME</em> because for a convolution with a stride=1, (or for pooling) it should produce output of the same size as the input. </p>
-</blockquote>
-<p>&#x516C;&#x5F0F;&#xFF1A;</p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">VALID&#xFF1A;</span><br><span class="line">w = &#xFF08;w_old - f + 1&#xFF09;/ stride &#xFF08;&#x7ED3;&#x679C;&#x5411;&#x4E0A;&#x53D6;&#x6574;&#xFF09;</span><br><span class="line">h = &#xFF08;h_old - f + 1&#xFF09;/ stride &#xFF08;&#x7ED3;&#x679C;&#x5411;&#x4E0A;&#x53D6;&#x6574;&#xFF09;</span><br><span class="line">SAME&#xFF1A;</span><br><span class="line">w = w_old / stride &#xFF08;&#x7ED3;&#x679C;&#x5411;&#x4E0A;&#x53D6;&#x6574;&#xFF09;</span><br><span class="line">h = h_old / stride &#xFF08;&#x7ED3;&#x679C;&#x5411;&#x4E0A;&#x53D6;&#x6574;&#xFF09;</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="&#x9884;&#x73AF;&#x5883;&#x5B89;&#x88C5;"><a href="#&#x9884;&#x73AF;&#x5883;&#x5B89;&#x88C5;" class="headerlink" title="&#x9884;&#x73AF;&#x5883;&#x5B89;&#x88C5;"></a>&#x9884;&#x73AF;&#x5883;&#x5B89;&#x88C5;</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line"></span><br><span class="line">&#x521B;&#x5EFA;&#x7528;&#x6237; adduser blockchain</span><br><span class="line"></span><br><span class="line">&#x5728;/etc/sudoers &#x91CC;&#x9762;&#x52A0;&#x5165;&#x4E00;&#x884C; blockchain ALL=(ALL:ALL) ALL</span><br><span class="line"></span><br><span class="line">su blockchain</span><br><span class="line"></span><br><span class="line">sudo apt-get install software-properties-common python-software-properties</span><br><span class="line"></span><br><span class="line">curl -O https://hyperledger.github.io/composer/latest/prereqs-ubuntu.sh</span><br><span class="line"></span><br><span class="line">chmod u+x prereqs-ubuntu.sh</span><br><span class="line"></span><br><span class="line">./prereqs-ubuntu.sh</span><br><span class="line"></span><br><span class="line"> source .bashrc</span><br><span class="line"></span><br><span class="line"> nvm install 8.9</span><br><span class="line"></span><br><span class="line"> nvm use 8.9</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="composer&#x7EC4;&#x4EF6;&#x5B89;&#x88C5;"><a href="#composer&#x7EC4;&#x4EF6;&#x5B89;&#x88C5;" class="headerlink" title="composer&#x7EC4;&#x4EF6;&#x5B89;&#x88C5;"></a>composer&#x7EC4;&#x4EF6;&#x5B89;&#x88C5;</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">npm config set registry https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line">npm install -g composer-cli@0.20</span><br><span class="line"></span><br><span class="line">npm install -g composer-rest-server@0.20</span><br><span class="line"></span><br><span class="line">npm install -g yo</span><br><span class="line"></span><br><span class="line">npm install -g composer-playground@0.20</span><br><span class="line"></span><br><span class="line">mkdir ~/fabric-dev-servers &amp;&amp; cd ~/fabric-dev-servers</span><br><span class="line"></span><br><span class="line">curl -O https://raw.githubusercontent.com/hyperledger/composer-tools/master/packages/fabric-dev-servers/fabric-dev-servers.tar.gz</span><br><span class="line">tar -xvf fabric-dev-servers.tar.gz</span><br><span class="line"></span><br><span class="line">cd ~/fabric-dev-servers</span><br><span class="line">export FABRIC_VERSION=hlfv12</span><br><span class="line">sudo ./downloadFabric.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">##########&#x5927;&#x5751;:</span><br><span class="line"></span><br><span class="line">/fabric-dev-servers/fabric-script/hlfv12/composer/</span><br><span class="line"></span><br><span class="line">docker-compose.yml</span><br><span class="line"></span><br><span class="line">&#x4E3A;&#x6BCF;&#x4E2A;environment&#x52A0;&#x4E0A;</span><br><span class="line">GODEBUG=netdns=go</span><br><span class="line"></span><br><span class="line">###########</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sudo ./startFabric.sh</span><br><span class="line">./createPeerAdminCard.sh</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="&#x65B0;&#x5EFA;&#x7F51;&#x7EDC;"><a href="#&#x65B0;&#x5EFA;&#x7F51;&#x7EDC;" class="headerlink" title="&#x65B0;&#x5EFA;&#x7F51;&#x7EDC;"></a>&#x65B0;&#x5EFA;&#x7F51;&#x7EDC;</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#x521B;&#x5EFA;&#x7F51;&#x7EDC;</span><br><span class="line"></span><br><span class="line">yo hyperledger-composer:businessnetwork</span><br><span class="line"></span><br><span class="line">composer network install --card PeerAdmin@hlfv1 --archiveFile chenzhou-network@0.0.1.bna</span><br><span class="line"></span><br><span class="line">composer network start --networkName chenzhou-network --networkVersion 0.0.1 --networkAdmin admin --networkAdminEnrollSecret adminpw --card PeerAdmin@hlfv1 --file chenzhounetworkadmin.card</span><br><span class="line"></span><br><span class="line">&#x5982;&#x679C;&#x65E0;&#x6CD5;&#x542F;&#x52A8;&#x89C1;&#x4E0B;&#x9762;&#x6559;&#x7A0B;</span><br><span class="line">(https://www.jianshu.com/p/cbe367858f39)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">composer card import --file chenzhounetworkadmin.card</span><br><span class="line"></span><br><span class="line">composer-playground</span><br><span class="line"></span><br><span class="line">&#x540E;&#x53F0;&#x8FD0;&#x884C; composer-rest-server</span><br><span class="line">nohup composer-rest-server -c admin@chenzhou-network -n never -w true &gt; rest-server.out 2&gt; rest-server.err &lt; /dev/null &amp;</span><br><span class="line"></span><br><span class="line">&#x505C;&#x6B62;composer-rest-server</span><br><span class="line">ps -A | grep &quot;node&quot; &#x67E5;&#x770B;&#x7A0B;&#x5E8F;&#x540E;Kill</span><br></pre></td></tr></tbody></table></figure>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -422,8 +409,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/14/mask-rcnn/" rel="next" title="Mask R-CNN">
-                <i class="fa fa-chevron-left"></i> Mask R-CNN
+              <a href="/2018/11/02/mobilenet/" rel="next" title="Mobile Net">
+                <i class="fa fa-chevron-left"></i> Mobile Net
               </a>
             
           </div>
@@ -431,10 +418,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/20/shiro-springboot/" rel="prev" title="Springboot 整合 shiro">
-                Springboot 整合 shiro <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -577,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#带padding的卷积输出大小计算"><span class="nav-number">1.</span> <span class="nav-text">带padding的卷积输出大小计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CS231n-卷积"><span class="nav-number">1.2.</span> <span class="nav-text">CS231n 卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorflow-卷积"><span class="nav-number">1.3.</span> <span class="nav-text">Tensorflow 卷积</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hyperledger-composer-安装踩坑"><span class="nav-number">1.</span> <span class="nav-text">hyperledger composer 安装踩坑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预环境安装"><span class="nav-number">1.2.</span> <span class="nav-text">预环境安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#composer组件安装"><span class="nav-number">1.3.</span> <span class="nav-text">composer组件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建网络"><span class="nav-number">1.4.</span> <span class="nav-text">新建网络</span></a></li></ol></li></ol></div>
             
 
           </div>
