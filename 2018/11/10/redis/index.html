@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Chenzhou" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Redis 指令Redis 常用指令入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis 指令">
+<meta property="og:url" content="http://yoursite.com/2018/11/10/redis/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="Redis 指令Redis 常用指令入门">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-10T06:35:44.408Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis 指令">
+<meta name="twitter:description" content="Redis 指令Redis 常用指令入门">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","sidebar":false}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/10/redis/"/>
+
+
+
+
+
+  <title>redis 指令 | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chen Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redis 指令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-10T13:25:57+08:00">
+                2018-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/j2ee/" itemprop="url" rel="index">
+                    <span itemprop="name">j2ee</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Redis-&#x6307;&#x4EE4;"><a href="#Redis-&#x6307;&#x4EE4;" class="headerlink" title="Redis &#x6307;&#x4EE4;"></a>Redis &#x6307;&#x4EE4;</h1><p>Redis &#x5E38;&#x7528;&#x6307;&#x4EE4;&#x5165;&#x95E8;</p>
+<a id="more"></a>
+<h2 id="string"><a href="#string" class="headerlink" title="string"></a>string</h2><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x67E5;&#x770B;keys</span></span><br><span class="line">keys *</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x6DFB;&#x52A0;&#x5B57;&#x7B26;&#x4E32;key,value</span></span><br><span class="line">set key1 value1</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x67E5;&#x770B;&#x5B57;&#x7B26;&#x4E32;key</span></span><br><span class="line">get key1</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x81EA;&#x589E;</span></span><br><span class="line">set counter <span class="number">10</span></span><br><span class="line">inrc counter	<span class="comment">//11</span></span><br><span class="line">inrcby counter <span class="number">100</span>	<span class="comment">//111,&#x540C;&#x7406;&#x81EA;&#x51CF; decr,decrby</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//get and set &#x8BBE;&#x7F6E;&#x65B0;&#x503C;&#xFF0C;&#x8FD4;&#x56DE;&#x539F;&#x503C;</span></span><br><span class="line">getset counter <span class="number">200</span>  <span class="comment">//&#x8FD4;&#x56DE;111&#xFF0C;&#x8BBE;&#x7F6E;counter&#x4E3A;200</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//&#x4E00;&#x6B21;&#x8BBE;&#x7F6E;&#xFF0C;&#x83B7;&#x53D6;&#x591A;&#x4E2A;</span></span><br><span class="line">mset a <span class="number">10</span> b <span class="number">20</span> c <span class="number">30</span></span><br><span class="line">mget a b c</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x662F;&#x5426;&#x5B58;&#x5728;</span></span><br><span class="line">exists counter <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x5220;&#x9664;</span></span><br><span class="line">del counter <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x7C7B;&#x578B;</span></span><br><span class="line">type key1 <span class="comment">//string</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x81EA;&#x52A8;&#x9500;&#x6BC1;</span></span><br><span class="line">expire key1 <span class="number">10</span>  <span class="comment">//&#x5341;&#x79D2;&#x540E;key1&#x81EA;&#x52A8;&#x9500;&#x6BC1;</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>&#x5B8C;&#x6574; &#x6307;&#x4EE4; <a href="https://redis.io/commands#list" target="_blank" rel="noopener">https://redis.io/commands#list</a></p>
+<p>redis&#x4E2D;&#x7684;List&#x975E;&#x6570;&#x7EC4;&#xFF0C;&#x662F;linked list&#xFF0C; &#x6240;&#x4EE5;&#x5934;&#x5C3E;&#x63D2;&#x5165;&#x5FEB;&#xFF0C;&#x67E5;&#x627E;&#x901F;&#x5EA6;&#x6162;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x63D2;&#x5165;List</span></span><br><span class="line">rpush list <span class="number">1</span> <span class="comment">// &#x5C3E;&#x63D2;&#x5165;&#xFF0C;&#x540C;&#x7406;lpush&#xFF0C;&#x8FD4;&#x56DE;list&#x5185;&#x4E2A;&#x6570;</span></span><br><span class="line">lpush list a b c</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x67E5;&#x770B;</span></span><br><span class="line">lrange list <span class="number">0</span> -<span class="number">1</span>	<span class="comment">//&#x67E5;&#x770B;&#x6574;&#x4E2A;list&#x7684;&#x5143;&#x7D20;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//pop</span></span><br><span class="line">rpop list 	<span class="comment">//&#x8FD4;&#x56DE;&#x88AB;pop&#x7684;&#x503C;</span></span><br><span class="line">lpop list</span><br><span class="line"></span><br><span class="line"><span class="comment">//brpop</span></span><br><span class="line">brpop list <span class="number">20</span> <span class="comment">//&#x5F53;list&#x6CA1;&#x6709;&#x4E1C;&#x897F;&#x80FD;pop&#x7684;&#x65F6;&#x5019;&#x963B;&#x585E;&#xFF0C;20&#x79D2;&#x5185;&#x8FD8;&#x662F;&#x6CA1;&#x6709;&#x4E1C;&#x897F;&#x5C31;&#x8FD4;&#x56DE;nil</span></span><br><span class="line">brpop list list2 <span class="number">20</span> <span class="comment">//&#x6309;&#x987A;&#x5E8F;pop,&#x5148;pop list&#x518D;pop list2 &#x6CA1;&#x4E1C;&#x897F;&#x7684;&#x5148;&#x963B;&#x585E;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//rpoplpush</span></span><br><span class="line">rpoplpush list list2</span><br><span class="line"><span class="comment">//&#x539F;&#x5B50;&#x64CD;&#x4F5C;&#xFF0C;&#x4FDD;&#x8BC1;&#x5B89;&#x5168;&#xFF0C;&#x4FDD;&#x8BC1;Pop&#x548C;push&#x80FD;&#x591F;&#x5982;&#x4E8B;&#x52A1;&#x4E00;&#x6837;&#x539F;&#x5B50;&#x6027;&#x5730;&#x5B8C;&#x6210;&#xFF0C;&#x5148;rpop&#x51FA;list&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x518D;&#x5C06;&#x8BE5;&#x5143;&#x7D20;&#x5728;lpush&#x5230;list2&#xFF0C;pop&#x5931;&#x8D25;&#x5C31;&#x7EC8;&#x6B62;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//brpoplpush</span></span><br><span class="line">brpoplush list list2 <span class="number">100</span><span class="comment">//&#x540C;&#x4E0A;&#xFF0C;Pop&#x5931;&#x8D25;&#x5C31;&#x963B;&#x585E;&#xFF0C;100s&#x5185;&#x80FD;&#x6210;&#x529F;&#x5C31;&#x7EE7;&#x7EED;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//llen</span></span><br><span class="line">llen list <span class="comment">//&#x8FD4;&#x56DE;&#x957F;&#x5EA6;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//exists</span></span><br><span class="line">exists list <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//del</span></span><br><span class="line">del list <span class="comment">//1</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h2><p>hash&#x7684;&#x5B58;&#x50A8;&#x683C;&#x5F0F; </p>
+<p>&#x5B8C;&#x6574;&#x6307;&#x4EE4; <a href="https://redis.io/commands#hash" target="_blank" rel="noopener">https://redis.io/commands#hash</a></p>
+<p>Key:</p>
+<p>&#x200B;    field1 value1</p>
+<p>&#x200B;    field2 value2</p>
+<p>&#x200B;    field3 value3</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x63D2;&#x5165;</span></span><br><span class="line">hmset myhash key1 value1 key2 value2 key3 value3</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x67E5;&#x8BE2;</span></span><br><span class="line">hget myhash key1</span><br><span class="line">hgetall myhash</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x81EA;&#x589E;</span></span><br><span class="line">hincrby myhash key1 <span class="number">100</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a>Sets</h2><p>&#x5B8C;&#x6574;&#x6307;&#x4EE4; <a href="https://redis.io/commands#set" target="_blank" rel="noopener">https://redis.io/commands#set</a></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x63D2;&#x5165;</span></span><br><span class="line">sadd myset <span class="number">1</span> <span class="number">2</span> <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x67E5;&#x770B;</span></span><br><span class="line">smembers myset</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x662F;&#x5426;&#x5728;set&#x4E2D;</span></span><br><span class="line">sismember myset <span class="number">1</span> <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x590D;&#x5236;</span></span><br><span class="line">sunionstore myset2 myset <span class="comment">//&#x4ECE;myset&#x590D;&#x5236;&#x5230;myset2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x968F;&#x673A;&#x5220;&#x9664;</span></span><br><span class="line">spop myset</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x6709;&#x5E8F;&#x96C6;&#x5408;-zset"><a href="#&#x6709;&#x5E8F;&#x96C6;&#x5408;-zset" class="headerlink" title="&#x6709;&#x5E8F;&#x96C6;&#x5408; zset"></a>&#x6709;&#x5E8F;&#x96C6;&#x5408; zset</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x63D2;&#x5165;</span></span><br><span class="line">zadd myset <span class="number">1</span> aa	<span class="comment">//zadd key score value</span></span><br><span class="line">zadd myset <span class="number">0.5</span> bb</span><br><span class="line">zadd myset <span class="number">100</span> cc</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x67E5;&#x770B;</span></span><br><span class="line">zadd myset <span class="number">0</span> -<span class="number">1</span> <span class="comment">// bb aa cc</span></span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Chen Zhou
+  </li>
+
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/06/springbeansrc/" rel="next" title="Spring源码  容器创建">
+                <i class="fa fa-chevron-left"></i> Spring源码  容器创建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="Chen Zhou" />
+            
+              <p class="site-author-name" itemprop="name">Chen Zhou</p>
+              <p class="site-description motion-element" itemprop="description">Get busy living, or get busy dying.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chenzhou9513" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="chenzhou9513 at zju dot edu dot cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis-指令"><span class="nav-number">1.</span> <span class="nav-text">Redis 指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#string"><span class="nav-number">1.1.</span> <span class="nav-text">string</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-number">1.2.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hash"><span class="nav-number">1.3.</span> <span class="nav-text">hash</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sets"><span class="nav-number">1.4.</span> <span class="nav-text">Sets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有序集合-zset"><span class="nav-number">1.4.1.</span> <span class="nav-text">有序集合 zset</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chen Zhou</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
