@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Chenzhou" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="EurekaSpringBoot 中 Eureka 框架简介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eureka">
+<meta property="og:url" content="http://yoursite.com/2018/11/13/eureka/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="EurekaSpringBoot 中 Eureka 框架简介">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/11/13/eureka/eureka/eureka.png">
+<meta property="og:updated_time" content="2018-11-13T14:15:35.005Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="eureka">
+<meta name="twitter:description" content="EurekaSpringBoot 中 Eureka 框架简介">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/13/eureka/eureka/eureka.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","sidebar":false}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/13/eureka/"/>
+
+
+
+
+
+  <title>eureka | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/13/eureka/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chen Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">eureka</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-13T18:56:27+08:00">
+                2018-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/j2ee/" itemprop="url" rel="index">
+                    <span itemprop="name">j2ee</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h1><p>SpringBoot &#x4E2D; Eureka &#x6846;&#x67B6;&#x7B80;&#x4ECB; </p>
+<a id="more"></a>
+<h2 id="&#x6846;&#x67B6;"><a href="#&#x6846;&#x67B6;" class="headerlink" title="&#x6846;&#x67B6;"></a>&#x6846;&#x67B6;</h2><p><img src="/2018/11/13/eureka/./eureka/eureka.png"></p>
+<p>Eureka Server &#x670D;&#x52A1;&#x6CE8;&#x518C;&#x4E2D;&#x5FC3;</p>
+<p>Application Service &#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;</p>
+<p>Application Client &#x670D;&#x52A1;&#x8C03;&#x7528;&#x8005;</p>
+<ul>
+<li>Eureka Server&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x5404;&#x4E2A;&#x5FAE;&#x670D;&#x52A1;&#x542F;&#x52A8;&#x65F6;&#xFF0C;&#x4F1A;&#x901A;&#x8FC7;Eureka Client&#x5411;Eureka Server&#x8FDB;&#x884C;&#x6CE8;&#x518C;&#x81EA;&#x5DF1;&#x7684;&#x4FE1;&#x606F;&#xFF08;&#x4F8B;&#x5982;&#x7F51;&#x7EDC;&#x4FE1;&#x606F;&#xFF09;&#xFF0C;Eureka Server&#x4F1A;&#x5B58;&#x50A8;&#x8BE5;&#x670D;&#x52A1;&#x7684;&#x4FE1;&#x606F;&#xFF1B;</li>
+<li>&#x5FAE;&#x670D;&#x52A1;&#x542F;&#x52A8;&#x540E;&#xFF0C;&#x4F1A;&#x5468;&#x671F;&#x6027;&#x5730;&#x5411;Eureka Server&#x53D1;&#x9001;&#x5FC3;&#x8DF3;&#xFF08;&#x9ED8;&#x8BA4;&#x5468;&#x671F;&#x4E3A;30&#x79D2;&#xFF09;&#x4EE5;&#x7EED;&#x7EA6;&#x81EA;&#x5DF1;&#x7684;&#x4FE1;&#x606F;&#x3002;&#x5982;&#x679C;Eureka Server&#x5728;&#x4E00;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#x6CA1;&#x6709;&#x63A5;&#x6536;&#x5230;&#x67D0;&#x4E2A;&#x5FAE;&#x670D;&#x52A1;&#x8282;&#x70B9;&#x7684;&#x5FC3;&#x8DF3;&#xFF0C;Eureka Server&#x5C06;&#x4F1A;&#x6CE8;&#x9500;&#x8BE5;&#x5FAE;&#x670D;&#x52A1;&#x8282;&#x70B9;&#xFF08;&#x9ED8;&#x8BA4;90&#x79D2;&#xFF09;&#xFF1B;</li>
+<li>&#x6BCF;&#x4E2A;Eureka Server&#x540C;&#x65F6;&#x4E5F;&#x662F;Eureka Client&#xFF0C;&#x591A;&#x4E2A;Eureka Server&#x4E4B;&#x95F4;&#x901A;&#x8FC7;&#x590D;&#x5236;&#x7684;&#x65B9;&#x5F0F;&#x5B8C;&#x6210;&#x670D;&#x52A1;&#x6CE8;&#x518C;&#x8868;&#x7684;&#x540C;&#x6B65;&#xFF1B;</li>
+<li>Eureka Client&#x4F1A;&#x7F13;&#x5B58;Eureka Server&#x4E2D;&#x7684;&#x4FE1;&#x606F;&#x3002;&#x5373;&#x4F7F;&#x6240;&#x6709;&#x7684;Eureka Server&#x8282;&#x70B9;&#x90FD;&#x5B95;&#x6389;&#xFF0C;&#x670D;&#x52A1;&#x6D88;&#x8D39;&#x8005;&#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x4FE1;&#x606F;&#x627E;&#x5230;&#x670D;&#x52A1;&#x63D0;&#x4F9B;&#x8005;&#x3002;</li>
+</ul>
+<h2 id="CAP&#x5B9A;&#x7406;"><a href="#CAP&#x5B9A;&#x7406;" class="headerlink" title="CAP&#x5B9A;&#x7406;"></a>CAP&#x5B9A;&#x7406;</h2><p>&#x5177;&#x4F53;&#x6848;&#x4F8B; &#xFF1A; <a href="http://www.ruanyifeng.com/blog/2018/07/cap.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2018/07/cap.html</a></p>
+<h3 id="&#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027;-Consistency"><a href="#&#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027;-Consistency" class="headerlink" title="&#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027; Consistency"></a>&#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027; Consistency</h3><p>&#x8BBA;&#x6587;&#x5B9A;&#x4E49;: Every read receives the most recent write or an error  </p>
+<p>&#x5411;&#x7CFB;&#x7EDF;&#x53D1;&#x8D77;&#x8BF7;&#x6C42;&#xFF0C;&#x8BFB;&#x53D6;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x67D0;&#x4E2A;&#x503C;&#xFF0C;&#x5FC5;&#x987B;&#x662F;&#x83B7;&#x53D6;&#x5230;&#x7684;&#x662F;&#x6700;&#x65B0;&#x503C;&#x6216;&#x8005;&#x662F;&#x8FD4;&#x56DE;error&#x3002;</p>
+<h3 id="&#x670D;&#x52A1;&#x53EF;&#x7528;&#x6027;-Avaliability"><a href="#&#x670D;&#x52A1;&#x53EF;&#x7528;&#x6027;-Avaliability" class="headerlink" title="&#x670D;&#x52A1;&#x53EF;&#x7528;&#x6027; Avaliability"></a>&#x670D;&#x52A1;&#x53EF;&#x7528;&#x6027; Avaliability</h3><p>&#x8BBA;&#x6587;&#x5B9A;&#x4E49;: Every request receives a (non-error) response &#x2013; without guarantee that it contains the most recent write</p>
+<p>&#x5411;&#x7CFB;&#x7EDF;&#x53D1;&#x8D77;&#x8BF7;&#x6C42;&#xFF0C;&#x4E0D;&#x7BA1;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E0D;&#x662F;&#x6700;&#x65B0;&#x503C;&#xFF0C;&#x5FC5;&#x987B;&#x4FDD;&#x8BC1;&#x7CFB;&#x7EDF;&#x80FD;&#x591F;&#x5728;&#x4E00;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#x54CD;&#x5E94;(&#x4E0D;&#x80FD;&#x662F;error)&#x3002;</p>
+<h3 id="&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;-Partition-tolerance"><a href="#&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027;-Partition-tolerance" class="headerlink" title="&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027; Partition tolerance"></a>&#x5206;&#x533A;&#x5BB9;&#x9519;&#x6027; Partition tolerance</h3><p>&#x8BBA;&#x6587;&#x5B9A;&#x4E49;: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes</p>
+<p>&#x65E0;&#x8BBA;&#x6709;&#x591A;&#x5C11;&#x5206;&#x533A;&#x4E0E;&#x5206;&#x533A;&#x4E4B;&#x95F4;&#x7684;&#x6D88;&#x606F;&#x56E0;&#x4E3A;&#x7F51;&#x7EDC;&#x539F;&#x56E0;&#x4E22;&#x5931;&#x4E86;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F9D;&#x7136;&#x4F1A;&#x6301;&#x7EED;&#x8FD0;&#x884C;&#x3002;</p>
+<h3 id="CAP&#x4E09;&#x8005;&#x4E0D;&#x53EF;&#x80FD;&#x540C;&#x65F6;&#x6210;&#x7ACB;"><a href="#CAP&#x4E09;&#x8005;&#x4E0D;&#x53EF;&#x80FD;&#x540C;&#x65F6;&#x6210;&#x7ACB;" class="headerlink" title="CAP&#x4E09;&#x8005;&#x4E0D;&#x53EF;&#x80FD;&#x540C;&#x65F6;&#x6210;&#x7ACB;"></a>CAP&#x4E09;&#x8005;&#x4E0D;&#x53EF;&#x80FD;&#x540C;&#x65F6;&#x6210;&#x7ACB;</h3><p>&#x56E0;&#x4E3A;CAP&#x5B9A;&#x7406;&#x662F;&#x9488;&#x5BF9;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x7684;&#xFF0C;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x662F;&#x524D;&#x63D0;&#xFF0C;&#x56E0;&#x4E3A;&#x7F51;&#x7EDC;&#x603B;&#x4F1A;&#x6709;&#x5EF6;&#x8FDF;&#x6216;&#x8005;&#x6545;&#x969C;&#x7684;&#x60C5;&#x51B5;&#xFF0C;CAP&#x4E2D;&#x7684;P&#x603B;&#x662F;&#x8981;&#x6C42;&#x6210;&#x7ACB;&#x7684;&#xFF0C;&#x5206;&#x5E03;&#x5F0F;&#x7CFB;&#x7EDF;&#x4E2D;&#x4E0D;&#x53EF;&#x80FD;&#x56E0;&#x4E3A;&#x8282;&#x70B9;&#x95F4;&#x7F51;&#x7EDC;&#x6545;&#x969C;&#x800C;&#x5BFC;&#x81F4;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x5954;&#x6E83;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x5728;C&#x548C;A&#x4E2D;&#x505A;&#x6289;&#x62E9;&#x3002;</p>
+<blockquote>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x53EF;&#x80FD;&#x540C;&#x65F6;&#x6210;&#x7ACB;:</p>
+<p>&#x5047;&#x8BBE;&#x4EE5;&#x6EE1;&#x8DB3;&#x5206;&#x533A;&#x5BB9;&#x9519;&#x4E3A;&#x524D;&#x63D0;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x6709;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#xFF0C;&#x7F51;&#x7EDC;&#x4E2D;&#x4EC5;&#x6709;&#x4E24;&#x8282;&#x70B9;x,y, &#x4E14;x&#x4E0E;y&#x4E4B;&#x524D;&#x7F51;&#x7EDC;&#x65AD;&#x5F00;&#x7684;&#x60C5;&#x51B5;,&#x5047;&#x8BBE;&#x8282;&#x70B9;x&#x5B58;&#x7684;&#x662F;&#x6700;&#x65B0;&#x6570;&#x636E;&#xFF0C;&#x8282;&#x70B9;y&#x8FD8;&#x672A;&#x548C;&#x8282;&#x70B9;x&#x540C;&#x6B65;</p>
+<ol>
+<li>&#x5982;&#x679C;&#x6EE1;&#x8DB3;&#x4E86;C&#xFF0C; &#x90A3;&#x4E48;&#x5C31;&#x5FC5;&#x987B;&#x7B49;&#x5230;&#x7F51;&#x7EDC;&#x6062;&#x590D;&#x4E86;&#x624D;&#x80FD;&#x54CD;&#x5E94;&#x670D;&#x52A1;&#xFF0C;&#x56E0;&#x4E3A;y&#x5FC5;&#x987B;&#x548C;x&#x540C;&#x6B65;&#x624D;&#x80FD;&#x4FDD;&#x8BC1;&#x4E00;&#x81F4;&#x6027;&#xFF0C;A&#x5C31;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;</li>
+<li>&#x5982;&#x679C;&#x6EE1;&#x8DB3;&#x4E86;A&#xFF0C; &#x90A3;&#x4E48;&#x54CD;&#x5E94;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x6709;&#x53EF;&#x80FD;&#x8BBF;&#x95EE;&#x5230;&#x8282;&#x70B9;y(&#x56E0;&#x4E3A;&#x7F51;&#x7EDC;&#x65AD;&#x5F00;&#x4E86;,&#x5E76;&#x4E0D;&#x77E5;&#x9053;x,y&#x8C01;&#x662F;&#x6700;&#x65B0;&#x503C;)&#xFF0C;&#x90A3;&#x4E48;&#x4E0D;&#x6EE1;&#x8DB3;C</li>
+</ol>
+</blockquote>
+<p>&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x662F;&#x4FDD;&#x8BC1;AP&#xFF0C;&#x653E;&#x5F03;C</p>
+<p><em><u><strong>&#x4E0D;&#x662F;&#x5B8C;&#x5168;&#x653E;&#x5F03;C&#xFF0C; &#x5C31;&#x50CF;&#x533A;&#x5757;&#x94FE;&#x7CFB;&#x7EDF;&#x4E2D;&#x4E00;&#x6837;&#xFF0C;&#x653E;&#x5F03;C&#x53EA;&#x662F;&#x653E;&#x5F03;&#x5F3A;&#x4E00;&#x81F4;&#x6027;&#x3002;&#x4E0D;&#x505A;&#x5230;&#x5B9E;&#x65F6;&#x4FDD;&#x8BC1;&#x4E00;&#x81F4;&#x6027;&#xFF0C;&#x800C;&#x662F;&#x4FDD;&#x8BC1;&#x6700;&#x7EC8;&#x4E00;&#x81F4;&#x6027;&#xFF0C;&#x5373;&#x4FDD;&#x8BC1;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x540E;&#x7CFB;&#x7EDF;&#x7684;&#x4E00;&#x81F4;&#x6027;&#x3002;</strong></u></em></p>
+<h2 id="Zookeeper-&#x548C;-Eureka"><a href="#Zookeeper-&#x548C;-Eureka" class="headerlink" title="Zookeeper &#x548C; Eureka"></a>Zookeeper &#x548C; Eureka</h2><p>Zookeeper    &#x4FDD;&#x8BC1;CP </p>
+<p>&#x56E0;&#x4E3A;zookeeper&#x53EA;&#x6709;&#x4E00;&#x4E2A;leader&#x8282;&#x70B9;&#x8D1F;&#x8D23;&#x6570;&#x636E;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x662F;&#x80FD;&#x4FDD;&#x8BC1;&#x6570;&#x636E;&#x4E00;&#x81F4;&#x6027;&#x7684;&#xFF0C;&#x5982;&#x679C;leader&#x5B95;&#x673A;&#x4E86;&#xFF0C;&#x6839;&#x636E;fast &#x7B97;&#x6CD5;&#x9009;&#x51FA;&#x65B0;&#x7684;leader&#xFF0C; &#x4F46;&#x662F;&#x7531;&#x4E8E;&#x8981;&#x505A;&#x4E3B;&#x4ECE;&#x8282;&#x70B9;&#x95F4;&#x7684;&#x540C;&#x6B65;&#xFF0C; &#x5728;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#x5185;A&#x5C31;&#x65E0;&#x6CD5;&#x4FDD;&#x8BC1;&#x4E86;&#x3002;</p>
+<p>Eureka        &#x4FDD;&#x8BC1;AP</p>
+<p>&#x4E0D;&#x5177;&#x5907;&#x4E3B;&#x4ECE;&#x5173;&#x7CFB;&#xFF0C;&#x6240;&#x6709;&#x8282;&#x70B9;&#x90FD;&#x662F;&#x5E73;&#x7B49;&#x7684;&#x3002;&#x53EA;&#x4FDD;&#x8BC1;&#x5F31;&#x4E00;&#x81F4;&#x6027;&#xFF0C;&#x5F53;server &#x6536;&#x4E0D;&#x5230;&#x67D0;&#x4E2A;client&#x7684;&#x5FC3;&#x8DF3;&#x65F6;&#xFF0C;&#x4EFB;&#x7136;&#x4FDD;&#x5B58;&#x7740;&#x8FD9;&#x4E2A;client&#x6CE8;&#x518C;&#x8FC7;&#x7684;&#x670D;&#x52A1;&#xFF0C;&#x8FD9;&#x4E2A;server&#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x6CE8;&#x518C;&#x548C;&#x67E5;&#x8BE2;&#x670D;&#x52A1;&#xFF0C;&#x53EA;&#x6709;&#x5F53;client&#x6062;&#x590D;&#x6B63;&#x5E38;&#x540E;&#xFF0C;&#x518D;&#x505A;&#x540C;&#x6B65;&#x3002;</p>
+<p>Zookeeper &#x5355;&#x8BED;&#x8A00;&#xFF0C; &#x4EE5;&#x5BA2;&#x6237;&#x7AEF;&#x5F62;&#x5F0F;&#x8BBF;&#x95EE;</p>
+<p>Eureka    &#x591A;&#x8BED;&#x8A00;&#xFF0C; &#x56E0;&#x4E3A;&#x662F;&#x4EE5;http&#x5F62;&#x5F0F;&#x8BBF;&#x95EE;</p>
+<h2 id="Eureka-&#x81EA;&#x52A8;&#x4FDD;&#x62A4;"><a href="#Eureka-&#x81EA;&#x52A8;&#x4FDD;&#x62A4;" class="headerlink" title="Eureka &#x81EA;&#x52A8;&#x4FDD;&#x62A4;"></a>Eureka &#x81EA;&#x52A8;&#x4FDD;&#x62A4;</h2><h3 id="1-&#x5FC3;&#x8DF3;"><a href="#1-&#x5FC3;&#x8DF3;" class="headerlink" title="1.&#x5FC3;&#x8DF3;"></a>1.&#x5FC3;&#x8DF3;</h3><p>&#x4E00;&#x822C;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x670D;&#x52A1;&#x5728;Eureka&#x4E0A;&#x6CE8;&#x518C;&#x540E;&#xFF0C;&#x4F1A;&#x6BCF;30&#x79D2;&#x53D1;&#x9001;&#x5FC3;&#x8DF3;&#x5305;&#xFF0C;Eureka&#x901A;&#x8FC7;&#x5FC3;&#x8DF3;&#x5305;&#x6765;&#x5224;&#x65AD;&#x670D;&#x52A1;&#x662F;&#x5426;&#x5065;&#x5EB7;&#xFF0C;&#x540C;&#x65F6;&#x4F1A;&#x5B9A;&#x671F;&#x5220;&#x9664;&#x8D85;&#x8FC7;90s&#x6CA1;&#x6709;&#x53D1;&#x9001;&#x5FC3;&#x8DF3;&#x5305;&#x7684;&#x670D;&#x52A1;</p>
+<h3 id="2-&#x542F;&#x52A8;&#x81EA;&#x6211;&#x4FDD;&#x62A4;&#x6A21;&#x5F0F;"><a href="#2-&#x542F;&#x52A8;&#x81EA;&#x6211;&#x4FDD;&#x62A4;&#x6A21;&#x5F0F;" class="headerlink" title="2. &#x542F;&#x52A8;&#x81EA;&#x6211;&#x4FDD;&#x62A4;&#x6A21;&#x5F0F;"></a>2. &#x542F;&#x52A8;&#x81EA;&#x6211;&#x4FDD;&#x62A4;&#x6A21;&#x5F0F;</h3><p>&#x6536;&#x4E0D;&#x5230;&#x670D;&#x52A1;&#x7684;&#x539F;&#x56E0;</p>
+<p>a. &#x670D;&#x52A1;&#x4E3B;&#x673A;&#x81EA;&#x8EAB;&#x7684;&#x539F;&#x56E0;&#xFF0C;&#x6BD4;&#x5982;&#x7A0B;&#x5E8F;&#x505C;&#x4E86;&#xFF0C;&#x5173;&#x673A;&#x4E86;&#x3002;</p>
+<p>b. &#x7F51;&#x7EDC;&#x963B;&#x585E;&#xFF0C;Eureka server&#x4E3A;&#x4E86;&#x5B89;&#x5168;&#x8D77;&#x89C1;&#x4E0D;&#x4F1A;&#x5220;&#x9664;&#x8BE5;&#x670D;&#x52A1;</p>
+<p>&#x200B;    &#x5982;&#x4F55;&#x5224;&#x65AD;&#x662F;&#x5426;&#x7F51;&#x7EDC;&#x963B;&#x585E;&#xFF0C;&#x7528;eureka&#x6536;&#x4E0D;&#x5230;&#x670D;&#x52A1;&#x7684;&#x591A;&#x5C11;&#x6765;&#x5224;&#x65AD;&#xFF0C;&#x5982;&#x679C;&#x5927;&#x6279;&#x91CF;&#x6536;&#x4E0D;&#x5230;&#x670D;&#x52A1;&#xFF0C;&#x670D;&#x52A1;&#x7684;&#x4E3B;&#x673A;&#x51FA;&#x95EE;&#x9898;&#x4E86;&#xFF0C;&#x5373;&#x60C5;&#x51B5;a&#xFF0C;&#x6240;&#x4EE5;eureka&#x8BBE;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A;&#x9608;&#x503C;&#xFF0C; 15&#x5206;&#x949F;&#x5185;&#x5C0F;&#x4E8E;85%&#x7684;&#x670D;&#x52A1;&#x5FC3;&#x8DF3;&#x505C;&#x6B62;&#x7684;&#x8BDD;&#xFF0C;&#x90A3;&#x4E48;&#x53EF;&#x80FD;&#x53EA;&#x662F;&#x7F51;&#x7EDC;&#x7684;&#x95EE;&#x9898;(&#x6709;&#x90A3;&#x4E48;&#x4E00;&#x5C0F;&#x90E8;&#x5206;&#x7684;&#x5FC3;&#x8DF3;&#x53D1;&#x9001;&#x7684;&#x65F6;&#x5019;&#x963B;&#x585E;&#x4E86;)&#xFF0C;&#x5C31;&#x542F;&#x52A8;&#x81EA;&#x6211;&#x4FDD;&#x62A4;&#x6A21;&#x5F0F;&#xFF0C;&#x5373;&#x4E0D;&#x5220;&#x9664;&#x505C;&#x6B62;&#x5FC3;&#x8DF3;&#x7684;&#x670D;&#x52A1;&#x3002;</p>
+<h3 id="3-&#x4E3A;&#x4EC0;&#x4E48;&#x8FD9;&#x4E48;&#x505A;"><a href="#3-&#x4E3A;&#x4EC0;&#x4E48;&#x8FD9;&#x4E48;&#x505A;" class="headerlink" title="3. &#x4E3A;&#x4EC0;&#x4E48;&#x8FD9;&#x4E48;&#x505A;"></a>3. &#x4E3A;&#x4EC0;&#x4E48;&#x8FD9;&#x4E48;&#x505A;</h3><p>&#x4FDD;&#x6301;&#x4E86;CAP&#x4E2D;&#x7684;A</p>
+<p>&#x56E0;&#x4E3A;Eureka&#x6709;&#x5BF9;&#x670D;&#x52A1;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x6709;&#x7F13;&#x5B58;&#x529F;&#x80FD;&#xFF0C;&#x6240;&#x4EE5;&#x5373;&#x4F7F;&#x670D;&#x52A1;&#x5FC3;&#x8DF3;&#x6CA1;&#x4E86;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x4FDD;&#x62A4;&#x6A21;&#x5F0F;&#x4E0B;&#x7EE7;&#x7EED;&#x54CD;&#x5E94;&#x8BF7;&#x6C42;&#x3002;</p>
+<h3 id="4-&#x5982;&#x679C;&#x5173;&#x95ED;&#x81EA;&#x6211;&#x4FDD;&#x62A4;"><a href="#4-&#x5982;&#x679C;&#x5173;&#x95ED;&#x81EA;&#x6211;&#x4FDD;&#x62A4;" class="headerlink" title="4. &#x5982;&#x679C;&#x5173;&#x95ED;&#x81EA;&#x6211;&#x4FDD;&#x62A4;"></a>4. &#x5982;&#x679C;&#x5173;&#x95ED;&#x81EA;&#x6211;&#x4FDD;&#x62A4;</h3><figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">eureka:</span></span><br><span class="line"><span class="attr">    server:</span></span><br><span class="line"><span class="attr">      enable-self-preservation:</span> <span class="literal">false</span> <span class="comment">#&#x5173;&#x95ED;</span></span><br><span class="line"><span class="attr">      eviction-interval-timer-in-ms:</span> <span class="number">60000</span> <span class="comment">#&#x6E05;&#x7406;&#x95F4;&#x9694;&#xFF0C;&#x4ECE;&#x670D;&#x52A1;&#x5217;&#x8868;&#x5220;&#x9664;&#x670D;&#x52A1;&#x7684;&#x65F6;&#x95F4;&#x95F4;&#x9694; 60s</span></span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Chen Zhou
+  </li>
+
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/11/allmaps/" rel="next" title="allmaps">
+                <i class="fa fa-chevron-left"></i> allmaps
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="Chen Zhou" />
+            
+              <p class="site-author-name" itemprop="name">Chen Zhou</p>
+              <p class="site-description motion-element" itemprop="description">Get busy living, or get busy dying.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chenzhou9513" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="chenzhou9513 at zju dot edu dot cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Eureka"><span class="nav-number">1.</span> <span class="nav-text">Eureka</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#框架"><span class="nav-number">1.1.</span> <span class="nav-text">框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAP定理"><span class="nav-number">1.2.</span> <span class="nav-text">CAP定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据一致性-Consistency"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据一致性 Consistency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务可用性-Avaliability"><span class="nav-number">1.2.2.</span> <span class="nav-text">服务可用性 Avaliability</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分区容错性-Partition-tolerance"><span class="nav-number">1.2.3.</span> <span class="nav-text">分区容错性 Partition tolerance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAP三者不可能同时成立"><span class="nav-number">1.2.4.</span> <span class="nav-text">CAP三者不可能同时成立</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper-和-Eureka"><span class="nav-number">1.3.</span> <span class="nav-text">Zookeeper 和 Eureka</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka-自动保护"><span class="nav-number">1.4.</span> <span class="nav-text">Eureka 自动保护</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-心跳"><span class="nav-number">1.4.1.</span> <span class="nav-text">1.心跳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-启动自我保护模式"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 启动自我保护模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-为什么这么做"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. 为什么这么做</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-如果关闭自我保护"><span class="nav-number">1.4.4.</span> <span class="nav-text">4. 如果关闭自我保护</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chen Zhou</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

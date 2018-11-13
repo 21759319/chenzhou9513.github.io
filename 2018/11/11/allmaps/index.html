@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Chenzhou" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="HashMap  HashTable  ConcurrentHashmap🐓HashMap  HashTable  ConcurrentHashmap 比对 以及 源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="allmaps">
+<meta property="og:url" content="http://yoursite.com/2018/11/11/allmaps/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="HashMap  HashTable  ConcurrentHashmap🐓HashMap  HashTable  ConcurrentHashmap 比对 以及 源码分析">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/11/11/allmaps/allmaps/hashmap2.png">
+<meta property="og:updated_time" content="2018-11-12T11:15:46.934Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="allmaps">
+<meta name="twitter:description" content="HashMap  HashTable  ConcurrentHashmap🐓HashMap  HashTable  ConcurrentHashmap 比对 以及 源码分析">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/11/allmaps/allmaps/hashmap2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","sidebar":false}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/11/allmaps/"/>
+
+
+
+
+
+  <title>allmaps | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/allmaps/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Chen Zhou">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">allmaps</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-11T22:10:06+08:00">
+                2018-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="HashMap-HashTable-ConcurrentHashmap"><a href="#HashMap-HashTable-ConcurrentHashmap" class="headerlink" title="HashMap  HashTable  ConcurrentHashmap"></a>HashMap  HashTable  ConcurrentHashmap</h1><p>&#x1F413;HashMap  HashTable  ConcurrentHashmap &#x6BD4;&#x5BF9;</p>
+<p>&#x4EE5;&#x53CA; &#x6E90;&#x7801;&#x5206;&#x6790;</p>
+<a id="more"></a>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><h3 id="&#x7ED3;&#x6784;"><a href="#&#x7ED3;&#x6784;" class="headerlink" title="&#x7ED3;&#x6784;"></a>&#x7ED3;&#x6784;</h3><p>JDK1.8 HashMap &#x7ED3;&#x6784;&#xFF1A;</p>
+<p>&#x76F8;&#x6BD4;&#x4E8E;1.7&#xFF0C;&#x5C06;&#x94FE;&#x8868;&#x6362;&#x6210;&#x4E86; &#x6570;&#x7EC4;+&#x94FE;&#x8868;&#x7684;&#x5F62;&#x5F0F; &#x6362;&#x6210;&#x4E86; &#x6570;&#x7EC4;+&#x7EA2;&#x9ED1;&#x6811;+&#x94FE;&#x8868;</p>
+<p><img src="/2018/11/11/allmaps/./allmaps/hashmap2.png"></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x5B58;&#x50A8;&#x5143;&#x7D20;&#x7684;&#x6570;&#x7EC4;&#xFF0C;&#x603B;&#x662F;2&#x7684;&#x5E42;&#x6B21;&#x500D;</span></span><br><span class="line"><span class="keyword">transient</span> Node&lt;k,v&gt;[] table; </span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x5B58;&#x653E;&#x5177;&#x4F53;&#x5143;&#x7D20;&#x7684;&#x96C6;</span></span><br><span class="line"><span class="keyword">transient</span> Set&lt;map.entry&lt;k,v&gt;&gt; entrySet;</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x94FE;&#x8868;&#x8282;&#x70B9;&#x5B9A;&#x4E49;</span></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>{</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> hash;</span><br><span class="line">    <span class="keyword">final</span> K key;</span><br><span class="line">    V value;</span><br><span class="line">    Node&lt;K,V&gt; next;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//....</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x7EA2;&#x9ED1;&#x6811;&#x8282;&#x70B9;&#x5B9A;&#x4E49;</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">LinkedHashMap</span>.<span class="title">Entry</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; </span>{</span><br><span class="line">        TreeNode&lt;K,V&gt; parent;  </span><br><span class="line">        TreeNode&lt;K,V&gt; left;</span><br><span class="line">        TreeNode&lt;K,V&gt; right;</span><br><span class="line">        TreeNode&lt;K,V&gt; prev;</span><br><span class="line">    	<span class="comment">//LinkedHashMap.Entry&lt;K,V&gt; &#x6709;&#x4E00;&#x4E2A;&#x5BF9;&#x5E94;&#x7684;next&#x65B9;&#x6CD5;&#xFF0C; &#x65B9;&#x4FBF;&#x904D;&#x5386;</span></span><br><span class="line">        <span class="keyword">boolean</span> red;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line"> </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="hash-&#x51FD;&#x6570;"><a href="#hash-&#x51FD;&#x6570;" class="headerlink" title="hash &#x51FD;&#x6570;"></a>hash &#x51FD;&#x6570;</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x8F93;&#x5165;</span></span><br><span class="line">key ,value</span><br><span class="line"></span><br><span class="line"><span class="comment">//hashcode, &#x7C7B;&#x81EA;&#x5E26;, &#x4E0D;&#x540C;&#x7C7B;&#x4E0D;&#x540C;&#x65B9;&#x6CD5;, &gt;&gt;&gt; &#x65E0;&#x7B26;&#x53F7;&#x53F3;&#x79FB;,&#x5168;&#x90E8;&#x8865;&#x96F6;,&#x76EE;&#x7684;&#x662F;&#x4E3A;&#x4E86;&#x628A;&#x9AD8;&#x5341;&#x516D;&#x4F4D;&#x7684;&#x4FE1;&#x606F;&#x4E5F;&#x5305;&#x542B;&#x5728;hash&#x5185;&#x5BB9;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;&#x79FB;&#x4F4D;&#x64CD;&#x4F5C;&#xFF0C;&#x56E0;&#x4E3A;&#x4E00;&#x822C;&#x8868;&#x90FD;&#x4E0D;&#x662F;&#x7279;&#x522B;&#x5927;&#xFF0C;&#x9AD8;16&#x7684;&#x4FE1;&#x606F;&#x6700;&#x540E;&#x4F1A;&#x88AB;&#x5FFD;&#x7565;</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  &#x6BD4;&#x5982;key.hashcode= 0xabcd1111	  </span></span><br><span class="line"><span class="comment">  0xabcd1111 &gt;&gt;&gt; 16 = 0x0000abcd,  </span></span><br><span class="line"><span class="comment">  0xabcd1111^0x0000abcd = </span></span><br><span class="line"><span class="comment">  10101011110011010001000100010001 ^ 00000000000000001010101111001101</span></span><br><span class="line"><span class="comment">  = 0xabcddddd</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">hash = key.hashcode() ^ (key.hashcode() &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x7528;hashmap&#x8868;&#x7684;&#x957F;&#x5EA6;&#x4E0E;hash&#x505A;&#x4E0E;, &#x6C42;&#x51FA;index</span></span><br><span class="line">index  = (tableCapacity - <span class="number">1</span>) &amp; hash;</span><br><span class="line"></span><br><span class="line">table[index] = value;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x6269;&#x5BB9;"><a href="#&#x6269;&#x5BB9;" class="headerlink" title="&#x6269;&#x5BB9;"></a>&#x6269;&#x5BB9;</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractMap</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt; <span class="keyword">implements</span> <span class="title">Map</span>&lt;<span class="title">K</span>,<span class="title">V</span>&gt;, <span class="title">Cloneable</span>, <span class="title">Serializable</span> </span>{</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// &#x9ED8;&#x8BA4;&#x7684;&#x521D;&#x59CB;&#x5BB9;&#x91CF;&#x662F;16</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_INITIAL_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">4</span>;   </span><br><span class="line">    <span class="comment">// &#x6700;&#x5927;&#x5BB9;&#x91CF;2&#x7684;30&#x6B21;&#x65B9;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAXIMUM_CAPACITY = <span class="number">1</span> &lt;&lt; <span class="number">30</span>; </span><br><span class="line">    <span class="comment">// &#x9ED8;&#x8BA4;&#x7684;&#x586B;&#x5145;&#x56E0;&#x5B50;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">float</span> DEFAULT_LOAD_FACTOR = <span class="number">0.75f</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//&#x5F53;&#x6876;(bucket)&#x4E0A;&#x7684;&#x7ED3;&#x70B9;&#x6570;&#x5927;&#x4E8E;&#x8FD9;&#x4E2A;&#x503C;&#x65F6;&#x4F1A;&#x8F6C;&#x6210;&#x7EA2;&#x9ED1;&#x6811;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TREEIFY_THRESHOLD = <span class="number">8</span>; </span><br><span class="line">    <span class="comment">// &#x5F53;&#x6876;(bucket)&#x4E0A;&#x7684;&#x7ED3;&#x70B9;&#x6570;&#x5C0F;&#x4E8E;&#x8FD9;&#x4E2A;&#x503C;&#x65F6;&#x6811;&#x8F6C;&#x94FE;&#x8868;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> UNTREEIFY_THRESHOLD = <span class="number">6</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// &#x6876;&#x4E2D;&#x7ED3;&#x6784;&#x8F6C;&#x5316;&#x4E3A;&#x7EA2;&#x9ED1;&#x6811;&#x5BF9;&#x5E94;&#x7684;table&#x7684;&#x6700;&#x5C0F;&#x5927;&#x5C0F;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MIN_TREEIFY_CAPACITY = <span class="number">64</span>;</span><br><span class="line">    <span class="comment">// &#x5B58;&#x50A8;&#x5143;&#x7D20;&#x7684;&#x6570;&#x7EC4;&#xFF0C;&#x603B;&#x662F;2&#x7684;&#x5E42;&#x6B21;&#x500D;</span></span><br><span class="line">    <span class="keyword">transient</span> Node&lt;k,v&gt;[] table; </span><br><span class="line">    <span class="comment">// &#x5B58;&#x653E;&#x5177;&#x4F53;&#x5143;&#x7D20;&#x7684;&#x96C6;</span></span><br><span class="line">    <span class="keyword">transient</span> Set&lt;map.entry&lt;k,v&gt;&gt; entrySet;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//resize&#x7684;&#x9608;&#x503C;</span></span><br><span class="line">    <span class="keyword">int</span> threshold;</span><br><span class="line">    <span class="comment">//&#x8BBE;&#x7F6E;&#x7684;&#x586B;&#x5145;&#x56E0;&#x5B50;</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">float</span> loadFactor;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="resize"><a href="#resize" class="headerlink" title="resize"></a>resize</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Node&lt;K,V&gt;[] resize() {</span><br><span class="line">    Node&lt;K,V&gt;[] oldTab = table;</span><br><span class="line">    <span class="keyword">int</span> oldCap = (oldTab == <span class="keyword">null</span>) ? <span class="number">0</span> : oldTab.length;</span><br><span class="line">    <span class="keyword">int</span> oldThr = threshold;</span><br><span class="line">    <span class="keyword">int</span> newCap, newThr = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// table&#x4E0D;&#x4E3A;&#x7A7A;&#x7684;&#x65F6;&#x5019;&#x6269;&#x5BB9;</span></span><br><span class="line">    <span class="keyword">if</span> (oldCap &gt; <span class="number">0</span>) {</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x5927;&#x4E8E;&#x6700;&#x5927;&#x503C;&#xFF0C;&#x65E0;&#x6CD5;&#x6269;&#x5BB9;</span></span><br><span class="line">        <span class="keyword">if</span> (oldCap &gt;= MAXIMUM_CAPACITY) {</span><br><span class="line">            threshold = Integer.MAX_VALUE;</span><br><span class="line">            <span class="keyword">return</span> oldTab;</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x5BB9;&#x91CF;&#x6269;&#x5145;&#x4E00;&#x500D;&#xFF0C;&#x9608;&#x503C;&#x6269;&#x5145;&#x4E00;&#x500D;</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((newCap = oldCap &lt;&lt; <span class="number">1</span>) &lt; MAXIMUM_CAPACITY &amp;&amp;</span><br><span class="line">                 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)</span><br><span class="line">            newThr = oldThr &lt;&lt; <span class="number">1</span>; </span><br><span class="line">        </span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// &#x8BF4;&#x660E;&#x662F;&#x8C03;&#x7528; &#x5E26;&#x53C2;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x65F6;&#x5019;&#x7684;resize()</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (oldThr &gt; <span class="number">0</span>)</span><br><span class="line">        newCap = oldThr;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//&#x8BF4;&#x660E;&#x662F;&#x8C03;&#x7528; &#x65E0;&#x53C2;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x65F6;&#x5019;&#x7684;resize()</span></span><br><span class="line">    <span class="keyword">else</span> {             </span><br><span class="line">        newCap = DEFAULT_INITIAL_CAPACITY;</span><br><span class="line">        newThr = (<span class="keyword">int</span>)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//&#x6839;&#x636E;&#x65B0;&#x7684;&#x5BB9;&#x91CF;&#x8BA1;&#x7B97;&#x65B0;&#x7684;&#x9608;&#x503C;</span></span><br><span class="line">    <span class="keyword">if</span> (newThr == <span class="number">0</span>) {</span><br><span class="line">        <span class="keyword">float</span> ft = (<span class="keyword">float</span>)newCap * loadFactor;</span><br><span class="line">        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (<span class="keyword">float</span>)MAXIMUM_CAPACITY ?</span><br><span class="line">                  (<span class="keyword">int</span>)ft : Integer.MAX_VALUE);</span><br><span class="line">    }</span><br><span class="line">    threshold = newThr;</span><br><span class="line">    </span><br><span class="line">    Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> Node[newCap];</span><br><span class="line">    table = newTab;</span><br><span class="line">    <span class="keyword">if</span> (oldTab != <span class="keyword">null</span>) {</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x904D;&#x5386;&#x8282;&#x70B9;</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; oldCap; ++j) {</span><br><span class="line">            Node&lt;K,V&gt; e;</span><br><span class="line">            <span class="keyword">if</span> ((e = oldTab[j]) != <span class="keyword">null</span>) {</span><br><span class="line">                oldTab[j] = <span class="keyword">null</span>;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//&#x8282;&#x70B9;&#x7A7A;&#x7684;&#x60C5;&#x51B5;</span></span><br><span class="line">                <span class="keyword">if</span> (e.next == <span class="keyword">null</span>)</span><br><span class="line">                    newTab[e.hash &amp; (newCap - <span class="number">1</span>)] = e;</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//&#x5982;&#x679C;&#x8BE5;&#x8282;&#x70B9;&#x662F;&#x6811;&#xFF0C;&#x5C31;&#x5BF9;&#x6811;rehash</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (e <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                    ((TreeNode&lt;K,V&gt;)e).split(<span class="keyword">this</span>, newTab, j, oldCap);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//&#x5982;&#x679C;&#x8BE5;&#x8282;&#x70B9;&#x662F;&#x94FE;&#x8868;&#xFF0C;&#x5C31;&#x5BF9;&#x94FE;&#x8868;rehash</span></span><br><span class="line">                <span class="keyword">else</span> {</span><br><span class="line">                    Node&lt;K,V&gt; loHead = <span class="keyword">null</span>, loTail = <span class="keyword">null</span>;</span><br><span class="line">                    Node&lt;K,V&gt; hiHead = <span class="keyword">null</span>, hiTail = <span class="keyword">null</span>;</span><br><span class="line">                    Node&lt;K,V&gt; next;</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment">//&#x627E;&#x4E0E;oldCap&#x505A;hash&#x7684;&#x503C;&#x7B49;&#x4E8E;0&#x7684;&#x4E0E;&#x4E0D;&#x7B49;&#x4E8E;0&#x7684;&#xFF0C;&#x751F;&#x6210;&#x4E24;&#x4E2A;&#x4E32;</span></span><br><span class="line">                    <span class="keyword">do</span> {</span><br><span class="line">                        next = e.next;</span><br><span class="line">                        <span class="keyword">if</span> ((e.hash &amp; oldCap) == <span class="number">0</span>) {</span><br><span class="line">                            <span class="keyword">if</span> (loTail == <span class="keyword">null</span>)</span><br><span class="line">                                loHead = e;</span><br><span class="line">                            <span class="keyword">else</span></span><br><span class="line">                                loTail.next = e;</span><br><span class="line">                            loTail = e;</span><br><span class="line">                        }</span><br><span class="line">                        <span class="keyword">else</span> {</span><br><span class="line">                            <span class="keyword">if</span> (hiTail == <span class="keyword">null</span>)</span><br><span class="line">                                hiHead = e;</span><br><span class="line">                            <span class="keyword">else</span></span><br><span class="line">                                hiTail.next = e;</span><br><span class="line">                            hiTail = e;</span><br><span class="line">                        }</span><br><span class="line">                    } <span class="keyword">while</span> ((e = next) != <span class="keyword">null</span>);</span><br><span class="line">                    </span><br><span class="line">                    <span class="keyword">if</span> (loTail != <span class="keyword">null</span>) {</span><br><span class="line">                        loTail.next = <span class="keyword">null</span>;</span><br><span class="line">                        <span class="comment">//&#x7B49;&#x4E8E;0&#x7684;&#x4E32;&#x76F4;&#x63A5;&#x590D;&#x5236;</span></span><br><span class="line">                        newTab[j] = loHead;</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">if</span> (hiTail != <span class="keyword">null</span>) {</span><br><span class="line">                        hiTail.next = <span class="keyword">null</span>;</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//&#x4E0D;&#x7B49;&#x4E8E;0&#x7684;&#x4E32;&#x79FB;&#x52A8;oldCap&#x4E2A;&#x4F4D;&#x7F6E;</span></span><br><span class="line">                        newTab[j + oldCap] = hiHead;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> newTab;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>&#x6269;&#x5BB9;&#x603B;&#x7ED3;&#xFF1A;</p>
+<p>&#x200B;    &#x53C2;&#x6570;&#xFF1A;</p>
+<p>&#x200B;        &#x521D;&#x59CB;&#x5BB9;&#x91CF;&#x662F; 16</p>
+<p>&#x200B;        &#x9ED8;&#x8BA4; Load factory = 0.75 </p>
+<p>&#x200B;        &#x9ED8;&#x8BA4;&#x521D;&#x59CB;&#x9608;&#x503C; = 0.75*16 = 12</p>
+<p>&#x200B;        bucket &#x5927;&#x4E8E;8&#x8F6C; &#x6811; &#xFF0C; &#x5C0F;&#x4E8E; 6&#x8F6C;&#x94FE;&#x8868;</p>
+<p>&#x200B;    &#x6269;&#x5BB9;&#xFF1A;</p>
+<p>&#x200B;        1.&#x5BB9;&#x91CF; &#x4E24;&#x500D;&#xFF0C; &#x9608;&#x503C;&#x4E24;&#x500D; &#xFF08;&#x6700;&#x5927;&#x662F;int&#x7684;&#x6700;&#x5927;&#x503C;&#xFF0C;&#x4E0D;&#x80FD;&#x518D;&#x6269;&#xFF09;</p>
+<p>&#x200B;        2.&#x904D;&#x5386;&#x6574;&#x4E2A;Node&lt;&gt;[]</p>
+<p>&#x200B;        3.&#x662F;&#x6811;&#x7684;rehash&#x6811;&#xFF0C;&#x662F;&#x94FE;&#x8868;&#x7684;rehash&#x94FE;&#x8868;</p>
+<p>&#x200B;        4.rehash&#x5177;&#x4F53;&#x662F; &#x524D;&#x540E;hash&#x76F8;&#x540C;&#x7684;&#x4E0D;&#x53D8;&#xFF0C;&#x4E0D;&#x540C;&#x7684;&#x79FB;&#x52A8;&#x65B0;&#x5BB9;&#x91CF;oldCap&#x4E2A;&#x4F4D;&#x7F6E;</p>
+</blockquote>
+<h3 id="Put"><a href="#Put" class="headerlink" title="Put"></a>Put</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbsent,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">boolean</span> evict)</span> </span>{</span><br><span class="line">    Node&lt;K,V&gt;[] tab; </span><br><span class="line">    Node&lt;K,V&gt; p; </span><br><span class="line">    <span class="keyword">int</span> n, i;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//&#x5BF9;&#x5E94;&#x4F4D;&#x7F6E;&#x6CA1;&#x4E1C;&#x897F;&#x76F4;&#x63A5;&#x63D2;</span></span><br><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>)</span><br><span class="line">        tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//&#x5BF9;&#x5E94;&#x4F4D;&#x7F6E;,&#x5373;p = tab[i = (n - 1) &amp; hash] &#x975E;&#x7A7A;&#x60C5;&#x51B5;</span></span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        Node&lt;K,V&gt; e; K k;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x5BFB;&#x627E;&#x4E00;&#x4E2A;e, &#x662F;&#x8981;&#x63D2;&#x5165;value&#x7684;&#x5730;&#x5740;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x5982;&#x679C;hash&#x76F8;&#x7B49;&#x4E14;key&#x4E5F;&#x76F8;&#x7B49;&#xFF0C;&#x8BF4;&#x660E;&#x5C31;&#x662F;table&#x91CC;&#x540C;&#x4E2A;&#x5143;&#x7D20;&#x8981;&#x6539;value&#xFF0C;&#x90A3;&#x4E48;e&#x5C31;&#x662F;p</span></span><br><span class="line">        <span class="keyword">if</span> (p.hash == hash &amp;&amp;</span><br><span class="line">            ((k = p.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            e = p;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x5982;&#x679C;p&#x8282;&#x70B9;&#x662F;&#x6811;&#xFF0C;&#x90A3;&#x4E48;&#x8C03;&#x7528;&#x6811;&#x7684;&#x63D2;&#x5165;&#x51FD;&#x6570;</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (p <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(<span class="keyword">this</span>, tab, hash, key, value);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x5982;&#x679C;p&#x8282;&#x70B9;&#x662F;&#x94FE;&#x8868;&#xFF0C;&#x63D2;&#x5165;&#x5230;&#x94FE;&#x8868;&#x4E2D;</span></span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> binCount = <span class="number">0</span>; ; ++binCount) {</span><br><span class="line">                <span class="keyword">if</span> ((e = p.next) == <span class="keyword">null</span>) {</span><br><span class="line">                    <span class="comment">//&#x5728;&#x6CA1;&#x6709;&#x4E0B;&#x4E00;&#x4E2A;next&#x7684;&#x65F6;&#x5019;&#x63D2;&#x5165;&#x4E00;&#x4E2A;&#x65B0;&#x7684;node</span></span><br><span class="line">                    p.next = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">                    <span class="comment">//&#x8D85;&#x8FC7;8&#x5C31;&#x8F6C;&#x6210;&#x6811;</span></span><br><span class="line">                    <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>)</span><br><span class="line">                        treeifyBin(tab, hash);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                p = e;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x4FEE;&#x6539;&#x627E;&#x5230;&#x7684;e&#x7684;value</span></span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) {</span><br><span class="line">            V oldValue = e.value;</span><br><span class="line">            <span class="keyword">if</span> (!onlyIfAbsent || oldValue == <span class="keyword">null</span>)</span><br><span class="line">                e.value = value;</span><br><span class="line">            afterNodeAccess(e);</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    ++modCount;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//put&#x7684;&#x5927;&#x5C0F;&#x8D85;&#x4E86;&#xFF0C;&#x5C31;resize</span></span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>put &#x603B;&#x7ED3;</p>
+<p>&#x200B;    1.&#x5148;&#x6839;&#x636E;p = table[(length-1)&amp;hash] &#x627E;&#x5230;&#x5BF9;&#x5E94;&#x4F4D;&#x7F6E;&#x4E0A;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x8BB0;&#x505A;p</p>
+<p>&#x200B;    2.</p>
+<p>&#x200B;        2.1 &#x82E5;p&#x4E3A;&#x7A7A;&#xFF0C;&#x76F4;&#x63A5;&#x63D2;&#x3002;</p>
+<p>&#x200B;        2.2 &#x5982;&#x679C;p&#x4EC5;&#x6709;&#x4E00;&#x4E2A;&#x503C;&#xFF0C;&#x4E14;key&#x76F8;&#x7B49;&#xFF0C;&#x76F4;&#x63A5;&#x6539;</p>
+<p>&#x200B;        2.3 &#x82E5;p&#x662F;&#x4E00;&#x4E2A;&#x94FE;&#x8868;&#xFF0C;&#x63D2;&#x5728;&#x5C3E;&#x90E8;(&#x6CE8;&#x610F;&#x8D85;&#x8FC7;8&#x8F6C;&#x6811;)</p>
+<p>&#x200B;        2.4 &#x82E5;p&#x662F;&#x4E00;&#x4E2A;&#x6811;&#xFF0C;&#x8C03;&#x7528;&#x6811;&#x7684;&#x63D2;&#x5165;&#x51FD;&#x6570;</p>
+<p>&#x200B;    3. &#x5224;&#x65AD;&#x662F;&#x5426;&#x8D85;&#x8FC7;&#x6269;&#x5BB9;&#x7684;&#x9608;&#x503C;&#xFF0C;&#x8D85;&#x8FC7;&#x5219;&#x6269;&#x5BB9;</p>
+</blockquote>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> Node&lt;K,V&gt; <span class="title">getNode</span><span class="params">(<span class="keyword">int</span> hash, Object key)</span> </span>{</span><br><span class="line">  </span><br><span class="line">    Node&lt;K,V&gt;[] tab;</span><br><span class="line">    Node&lt;K,V&gt; first, e; </span><br><span class="line">    <span class="keyword">int</span> n; K k;</span><br><span class="line">    <span class="keyword">if</span> ((tab = table) != <span class="keyword">null</span> &amp;&amp; (n = tab.length) &gt; <span class="number">0</span> &amp;&amp;</span><br><span class="line">        (first = tab[(n - <span class="number">1</span>) &amp; hash]) != <span class="keyword">null</span>) { </span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x5982;&#x679C;&#x5BF9;&#x5E94;&#x4F4D;&#x7F6E;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;key&#x76F8;&#x7B49;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;</span></span><br><span class="line">        <span class="keyword">if</span> (first.hash == hash &amp;&amp; </span><br><span class="line">            ((k = first.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">            <span class="keyword">return</span> first;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//&#x5BF9;&#x5E94;&#x4F4D;&#x7F6E;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;key&#x4E0D;&#x7B49;,&#x627E;&#x6811;&#x6216;&#x8005;&#x94FE;&#x8868;&#x4E2D;key&#x76F8;&#x7B49;&#x7684;</span></span><br><span class="line">        <span class="keyword">if</span> ((e = first.next) != <span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">if</span> (first <span class="keyword">instanceof</span> TreeNode)</span><br><span class="line">                <span class="comment">//&#x627E;&#x6811;</span></span><br><span class="line">                <span class="keyword">return</span> ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);</span><br><span class="line">            <span class="comment">//&#x5FAA;&#x73AF;&#x627E;&#x94FE;&#x8868;</span></span><br><span class="line">            <span class="keyword">do</span> {</span><br><span class="line">                <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                    ((k = e.key) == key || (key != <span class="keyword">null</span> &amp;&amp; key.equals(k))))</span><br><span class="line">                    <span class="keyword">return</span> e;</span><br><span class="line">            } <span class="keyword">while</span> ((e = e.next) != <span class="keyword">null</span>);</span><br><span class="line">        </span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x4E3A;&#x4EC0;&#x4E48;&#x7EBF;&#x7A0B;&#x4E0D;&#x5B89;&#x5168;"><a href="#&#x4E3A;&#x4EC0;&#x4E48;&#x7EBF;&#x7A0B;&#x4E0D;&#x5B89;&#x5168;" class="headerlink" title="&#x4E3A;&#x4EC0;&#x4E48;&#x7EBF;&#x7A0B;&#x4E0D;&#x5B89;&#x5168;"></a>&#x4E3A;&#x4EC0;&#x4E48;&#x7EBF;&#x7A0B;&#x4E0D;&#x5B89;&#x5168;</h3><p>HashMap&#x7684;&#x5B9E;&#x73B0;&#x91CC;&#x6CA1;&#x6709;&#x9501;&#x7684;&#x673A;&#x5236;&#xFF0C;&#x56E0;&#x6B64;&#x5B83;&#x662F;&#x7EBF;&#x7A0B;&#x4E0D;&#x5B89;&#x5168;&#x7684;&#x3002; </p>
+<p>&#x6B7B;&#x5FAA;&#x73AF;&#x95EE;&#x9898;&#xFF1A;</p>
+<p> jdk1.7&#x4E2D;&#x7684;resize &#x7528;&#x7684;&#x662F;&#x94FE;&#x8868;&#x5934;&#x63D2;&#x6CD5;&#xFF0C;&#x7ED3;&#x679C;&#x662F;&#x53CD;&#x7684;&#xFF0C;&#x800C;get&#x662F;&#x4ECE;&#x94FE;&#x8868;&#x5934;&#x5F00;&#x59CB;&#x627E;&#xFF0C;&#x4E00;&#x524D;&#x4E00;&#x540E;&#xFF0C;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x73AF;&#xFF1B;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">transfer</span><span class="params">(Entry[] newTable, <span class="keyword">boolean</span> rehash)</span> </span>{</span><br><span class="line">    <span class="keyword">int</span> newCapacity = newTable.length;</span><br><span class="line">    <span class="keyword">for</span> (Entry&lt;K,V&gt; e : table) {</span><br><span class="line">        <span class="keyword">while</span>(<span class="keyword">null</span> != e) {</span><br><span class="line">            Entry&lt;K,V&gt; next = e.next;</span><br><span class="line">            <span class="keyword">if</span> (rehash) {</span><br><span class="line">                e.hash = <span class="keyword">null</span> == e.key ? <span class="number">0</span> : hash(e.key);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">int</span> i = indexFor(e.hash, newCapacity);</span><br><span class="line">            <span class="comment">//&#x5934;&#x63D2;&#x6CD5;#######</span></span><br><span class="line">            e.next = newTable[i];</span><br><span class="line">            newTable[i] = e;</span><br><span class="line">            e = next;</span><br><span class="line">            <span class="comment">//############</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="HashTable"><a href="#HashTable" class="headerlink" title="HashTable"></a>HashTable</h2><p>&#x4E3B;&#x8981;&#x4ECB;&#x7ECD;&#x4E0E;Hashmap&#x7684;&#x533A;&#x522B;</p>
+<h3 id="&#x7ED3;&#x6784;&#x4E0E;&#x9501;"><a href="#&#x7ED3;&#x6784;&#x4E0E;&#x9501;" class="headerlink" title="&#x7ED3;&#x6784;&#x4E0E;&#x9501;"></a>&#x7ED3;&#x6784;&#x4E0E;&#x9501;</h3><p>&#x6CA1;&#x6709;&#x7EA2;&#x9ED1;&#x6811;</p>
+<p>&#x4E14;&#x4EE5;&#x65B9;&#x6CD5;&#x4E3A;&#x7C92;&#x5EA6;&#x52A0;&#x9501;&#xFF0C;&#x901F;&#x5EA6;&#x5F88;&#x6162;, &#x5982;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> V <span class="title">put</span><span class="params">(K key, V value)</span></span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="hash&#x65B9;&#x6CD5;&#x4E0D;&#x540C;"><a href="#hash&#x65B9;&#x6CD5;&#x4E0D;&#x540C;" class="headerlink" title="hash&#x65B9;&#x6CD5;&#x4E0D;&#x540C;"></a>hash&#x65B9;&#x6CD5;&#x4E0D;&#x540C;</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x4E0E;Int&#x7684;&#x6700;&#x5927;&#x503C;&#x6C42;&#x4E0E;&#x540E;&#x4E0E;&#x5BF9;&#x8868;&#x957F;&#x53D6;&#x4F59;</span></span><br><span class="line">index = (hash &amp; <span class="number">0x7FFFFFFF</span>) % tab.length;</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="&#x5BB9;&#x91CF;"><a href="#&#x5BB9;&#x91CF;" class="headerlink" title="&#x5BB9;&#x91CF;"></a>&#x5BB9;&#x91CF;</h3><p>&#x521D;&#x59CB;&#x5BB9;&#x91CF; 11</p>
+<p>Load factory 0.75</p>
+<p>&#x6269;&#x5BB9;</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> newCapacity = (oldCapacity &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>;</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h2><h3 id="&#x7ED3;&#x6784;-1"><a href="#&#x7ED3;&#x6784;-1" class="headerlink" title="&#x7ED3;&#x6784;"></a>&#x7ED3;&#x6784;</h3><p>&#x7ED3;&#x6784;&#x4E0E;hashmap&#x57FA;&#x672C;&#x4E00;&#x81F4;&#xFF0C;&#x91CD;&#x70B9;&#x5728;&#x9501;&#x7684;&#x64CD;&#x4F5C;</p>
+<h3 id="&#x5BB9;&#x91CF;-1"><a href="#&#x5BB9;&#x91CF;-1" class="headerlink" title="&#x5BB9;&#x91CF;"></a>&#x5BB9;&#x91CF;</h3><h3 id="hash&#x7B97;&#x6CD5;"><a href="#hash&#x7B97;&#x6CD5;" class="headerlink" title="hash&#x7B97;&#x6CD5;"></a>hash&#x7B97;&#x6CD5;</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">spread</span><span class="params">(<span class="keyword">int</span> h)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> (h ^ (h &gt;&gt;&gt; <span class="number">16</span>)) &amp; HASH_BITS;</span><br><span class="line">}</span><br><span class="line"><span class="keyword">int</span> hash = spread(key.hashCode());</span><br><span class="line">index = (tableLength - <span class="number">1</span>) &amp; hash</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="CAS-compare-and-swap"><a href="#CAS-compare-and-swap" class="headerlink" title="CAS compare and swap"></a>CAS compare and swap</h3><p>jvm&#x4E0D;&#x5141;&#x8BB8;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x5E95;&#x5C42;&#xFF0C;&#x662F;&#x901A;&#x8FC7;&#x672C;&#x5730;&#x65B9;&#x6CD5;&#x6765;&#x8BBF;&#x95EE;&#xFF0C;&#x800C;unsafe &#x7C7B;&#x63D0;&#x4F9B;&#x4E86;&#x786C;&#x4EF6;&#x7EA7;&#x522B;&#x7684;&#x539F;&#x5B50;&#x64CD;&#x4F5C;&#xFF0C;&#x53EF;&#x4EE5;&#x50CF;C&#x4E00;&#x6837;&#x81EA;&#x5B9A;&#x4E49;&#x5206;&#x914D;&#x5185;&#x5B58;&#xFF0C;&#x91CA;&#x653E;&#x5185;&#x5B58;&#x3002;java&#x662F;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x4F46;&#x662F;unsafe&#x5305;&#x662F;&#x4E0D;&#x5B89;&#x5168;&#x7684;&#x3002;</p>
+<p>&#x5728;concurrentHashMap&#x4E2D;&#x5C31;&#x7528;&#x5230;&#x4E86;&#x539F;&#x5B50;&#x64CD;&#x4F5C; CAS</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> sun.misc.Unsafe U;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Class&lt;?&gt; ak = Node[].class;</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x6BCF;&#x4E2A;&#x7C7B;&#x90FD;&#x6709;&#x5934;&#x90E8;&#xFF0C;&#x7B97;&#x504F;&#x79FB;&#x7684;&#x65F6;&#x5019;&#x8981;&#x7B97;&#x4E0A;&#x5934;&#x90E8;&#x7684;&#x504F;&#x79FB;</span></span><br><span class="line">ABASE = U.arrayBaseOffset(ak);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x8BA1;&#x7B97;&#x504F;&#x79FB;&#x91CF;</span></span><br><span class="line"><span class="keyword">int</span> scale = U.arrayIndexScale(ak);</span><br><span class="line">ASHIFT = <span class="number">31</span> - Integer.numberOfLeadingZeros(scale);</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> &lt;K,V&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">casTabAt</span><span class="params">(Node&lt;K,V&gt;[] tab, <span class="keyword">int</span> i,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    Node&lt;K,V&gt; c, Node&lt;K,V&gt; v)</span> </span>{</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//compareAndSwapObject(&#x6570;&#x7EC4;&#x5934;&#x5730;&#x5740;, &#x504F;&#x79FB;&#x91CF;, &#x5BF9;&#x6BD4;&#x503C;, &#x8BBE;&#x7F6E;&#x503C;)</span></span><br><span class="line">    <span class="comment">// &#x6548;&#x679C;: &#x5BF9;&#x6BD4;&#x6570;&#x7EC4;&#x504F;&#x79FB;&#x91CF;&#x4E0A;&#x7684;&#x503C;&#xFF0C;&#x5982;&#x679C;&#x7B49;&#x4E8E;&#x5BF9;&#x6BD4;&#x503C;&#xFF0C;&#x5C31;&#x6539;&#x6210;&#x8BBE;&#x7F6E;&#x503C;</span></span><br><span class="line">    <span class="keyword">return</span> U.compareAndSwapObject(tab, ((<span class="keyword">long</span>)i &lt;&lt; ASHIFT) + ABASE, c, v);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>{</span><br><span class="line">    <span class="keyword">return</span> putVal(key, value, <span class="keyword">false</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">/** Implementation for put and putIfAbsent */</span></span><br><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(K key, V value, <span class="keyword">boolean</span> onlyIfAbsent)</span> </span>{</span><br><span class="line">    <span class="keyword">if</span> (key == <span class="keyword">null</span> || value == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="keyword">int</span> hash = spread(key.hashCode());</span><br><span class="line">    <span class="keyword">int</span> binCount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (Node&lt;K,V&gt;[] tab = table;;) {</span><br><span class="line">        Node&lt;K,V&gt; f; <span class="keyword">int</span> n, i, fh;</span><br><span class="line">        <span class="keyword">if</span> (tab == <span class="keyword">null</span> || (n = tab.length) == <span class="number">0</span>)</span><br><span class="line">            tab = initTable();</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((f = tabAt(tab, i = (n - <span class="number">1</span>) &amp; hash)) == <span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">if</span> (casTabAt(tab, i, <span class="keyword">null</span>,</span><br><span class="line">                         <span class="keyword">new</span> Node&lt;K,V&gt;(hash, key, value, <span class="keyword">null</span>)))</span><br><span class="line">                <span class="keyword">break</span>;                   <span class="comment">// no lock when adding to empty bin</span></span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ((fh = f.hash) == MOVED)</span><br><span class="line">            tab = helpTransfer(tab, f);</span><br><span class="line">        <span class="keyword">else</span> {</span><br><span class="line">            V oldVal = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">synchronized</span> (f) {</span><br><span class="line">                <span class="keyword">if</span> (tabAt(tab, i) == f) {</span><br><span class="line">                    <span class="keyword">if</span> (fh &gt;= <span class="number">0</span>) {</span><br><span class="line">                        binCount = <span class="number">1</span>;</span><br><span class="line">                        <span class="keyword">for</span> (Node&lt;K,V&gt; e = f;; ++binCount) {</span><br><span class="line">                            K ek;</span><br><span class="line">                            <span class="keyword">if</span> (e.hash == hash &amp;&amp;</span><br><span class="line">                                ((ek = e.key) == key ||</span><br><span class="line">                                 (ek != <span class="keyword">null</span> &amp;&amp; key.equals(ek)))) {</span><br><span class="line">                                oldVal = e.val;</span><br><span class="line">                                <span class="keyword">if</span> (!onlyIfAbsent)</span><br><span class="line">                                    e.val = value;</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                            }</span><br><span class="line">                            Node&lt;K,V&gt; pred = e;</span><br><span class="line">                            <span class="keyword">if</span> ((e = e.next) == <span class="keyword">null</span>) {</span><br><span class="line">                                pred.next = <span class="keyword">new</span> Node&lt;K,V&gt;(hash, key,</span><br><span class="line">                                                          value, <span class="keyword">null</span>);</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                            }</span><br><span class="line">                        }</span><br><span class="line">                    }</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (f <span class="keyword">instanceof</span> TreeBin) {</span><br><span class="line">                        Node&lt;K,V&gt; p;</span><br><span class="line">                        binCount = <span class="number">2</span>;</span><br><span class="line">                        <span class="keyword">if</span> ((p = ((TreeBin&lt;K,V&gt;)f).putTreeVal(hash, key,</span><br><span class="line">                                                       value)) != <span class="keyword">null</span>) {</span><br><span class="line">                            oldVal = p.val;</span><br><span class="line">                            <span class="keyword">if</span> (!onlyIfAbsent)</span><br><span class="line">                                p.val = value;</span><br><span class="line">                        }</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (binCount != <span class="number">0</span>) {</span><br><span class="line">                <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD)</span><br><span class="line">                    treeifyBin(tab, i);</span><br><span class="line">                <span class="keyword">if</span> (oldVal != <span class="keyword">null</span>)</span><br><span class="line">                    <span class="keyword">return</span> oldVal;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    addCount(<span class="number">1L</span>, binCount);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Chen Zhou
+  </li>
+
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/10/redis/" rel="next" title="redis 指令">
+                <i class="fa fa-chevron-left"></i> redis 指令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/13/eureka/" rel="prev" title="eureka">
+                eureka <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.jpg"
+                alt="Chen Zhou" />
+            
+              <p class="site-author-name" itemprop="name">Chen Zhou</p>
+              <p class="site-description motion-element" itemprop="description">Get busy living, or get busy dying.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chenzhou9513" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="chenzhou9513 at zju dot edu dot cn" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HashMap-HashTable-ConcurrentHashmap"><span class="nav-number">1.</span> <span class="nav-text">HashMap  HashTable  ConcurrentHashmap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap"><span class="nav-number">1.1.</span> <span class="nav-text">HashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构"><span class="nav-number">1.1.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash-函数"><span class="nav-number">1.1.2.</span> <span class="nav-text">hash 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩容"><span class="nav-number">1.1.3.</span> <span class="nav-text">扩容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resize"><span class="nav-number">1.1.4.</span> <span class="nav-text">resize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Put"><span class="nav-number">1.1.5.</span> <span class="nav-text">Put</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#get"><span class="nav-number">1.1.6.</span> <span class="nav-text">get</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么线程不安全"><span class="nav-number">1.1.7.</span> <span class="nav-text">为什么线程不安全</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashTable"><span class="nav-number">1.2.</span> <span class="nav-text">HashTable</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构与锁"><span class="nav-number">1.2.1.</span> <span class="nav-text">结构与锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash方法不同"><span class="nav-number">1.2.2.</span> <span class="nav-text">hash方法不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容量"><span class="nav-number">1.2.3.</span> <span class="nav-text">容量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">1.3.</span> <span class="nav-text">ConcurrentHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容量-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">容量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash算法"><span class="nav-number">1.3.3.</span> <span class="nav-text">hash算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAS-compare-and-swap"><span class="nav-number">1.3.4.</span> <span class="nav-text">CAS compare and swap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#put"><span class="nav-number">1.3.5.</span> <span class="nav-text">put</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chen Zhou</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访问
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
