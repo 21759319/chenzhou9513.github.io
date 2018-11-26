@@ -79,16 +79,27 @@
 
 
 
-<meta name="description" content="Get busy living, or get busy dying.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Java &amp;#x5E38;&amp;#x89C1;&amp;#x9762;&amp;#x8BD5;&amp;#x9898;&amp;#x603B;&amp;#x7ED3;Java&amp;#x57FA;&amp;#x7840;jdk,jvm,jrejre : java runtime enviornment jdk: java development kit jvm+lib = jre jre + java&amp;#x5DE5;&amp;#x5177;(bin&amp;#x4E0B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 常见面试题总结">
+<meta property="og:url" content="http://yoursite.com/2018/11/14/javainterview/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="Get busy living, or get busy dying.">
+<meta property="og:description" content="Java &amp;#x5E38;&amp;#x89C1;&amp;#x9762;&amp;#x8BD5;&amp;#x9898;&amp;#x603B;&amp;#x7ED3;Java&amp;#x57FA;&amp;#x7840;jdk,jvm,jrejre : java runtime enviornment jdk: java development kit jvm+lib = jre jre + java&amp;#x5DE5;&amp;#x5177;(bin&amp;#x4E0B">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/jvm1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/jvm2.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/javarun.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/gcroot.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/younggc.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/concurrent.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/tcp1.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/tcp2.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/bptree.png">
+<meta property="og:updated_time" content="2018-11-26T14:23:08.392Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Blog">
-<meta name="twitter:description" content="Get busy living, or get busy dying.">
+<meta name="twitter:title" content="Java 常见面试题总结">
+<meta name="twitter:description" content="Java &amp;#x5E38;&amp;#x89C1;&amp;#x9762;&amp;#x8BD5;&amp;#x9898;&amp;#x603B;&amp;#x7ED3;Java&amp;#x57FA;&amp;#x7840;jdk,jvm,jrejre : java runtime enviornment jdk: java development kit jvm+lib = jre jre + java&amp;#x5DE5;&amp;#x5177;(bin&amp;#x4E0B">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/14/javainterview/javainterview/jvm1.jpeg">
 
 
 
@@ -118,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/11/14/javainterview/"/>
 
 
 
 
 
-  <title>Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Java 常见面试题总结 | Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -143,8 +154,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left 
-  page-home">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -237,341 +247,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/shell/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chen Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/21/shell/" itemprop="url">shell</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-21T21:19:20+08:00">
-                2018-11-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Bash-&#x57FA;&#x7840;"><a href="#Bash-&#x57FA;&#x7840;" class="headerlink" title="Bash &#x57FA;&#x7840;"></a>Bash &#x57FA;&#x7840;</h1><h2 id="&#x53D8;&#x91CF;"><a href="#&#x53D8;&#x91CF;" class="headerlink" title="&#x53D8;&#x91CF;"></a>&#x53D8;&#x91CF;</h2><p>&#x81EA;&#x5B9A;&#x4E49;&#x53D8;&#x91CF;&#x53EA;&#x5728;&#x5F53;&#x524D;shell&#x73AF;&#x5883;&#x4E0B;&#x624D;&#x6709;&#x6548;</p>
-<p>&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4F1A;&#x5728;&#x6574;&#x4E2A;&#x4E3B;&#x673A;&#x73AF;&#x5883;&#x4E0B;&#x7684;shell&#x4E2D;&#x751F;&#x6548;</p>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#key1 = hello world &#x4E0D;&#x53EF;&#x884C;&#xFF0C;&#x4E2D;&#x95F4;&#x6709;&#x7A7A;&#x683C;</span></span><br><span class="line">key1 = <span class="string">&apos;hello world&apos;</span>	</span><br><span class="line"><span class="comment">#&#x6216;&#x8005;</span></span><br><span class="line">key1 = <span class="string">&quot;hello world&quot;</span></span><br><span class="line"><span class="comment">#&#x6216;&#x8005;</span></span><br><span class="line">key2 = <span class="string">&quot;aaaaaa <span class="variable">$key1</span>&quot;</span>	<span class="comment">#&#x7528;&#x53CC;&#x5F15;&#x53F7;&#x53EF;&#x4EE5;&#x5F15;&#x7528;&#xFF0C;&#x5355;&#x5F15;&#x53F7;&#x4F1A;&#x76F4;&#x63A5;&#x539F;&#x6837;&#x8F93;&#x51FA;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x7528;&#x9014;&#x4E4B;&#x4E00;&#xFF0C;&#x53EF;&#x4EE5;&#x547D;&#x4EE4;&#x884C;&#x8BBE;&#x7F6E;&#x4E34;&#x65F6;&#x73AF;&#x5883;&#x53D8;&#x91CF;</span></span><br><span class="line">blog=~/blog</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$blog</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x76F4;&#x63A5;set&#x53EF;&#x4EE5;&#x8F93;&#x51FA;&#x6240;&#x6709;&#x7684;&#x53D8;&#x91CF;</span></span><br><span class="line"><span class="comment">#&#x7528;env&#x53EF;&#x4EE5;&#x8F93;&#x51FA;&#x6240;&#x6709;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x7528;unset&#x53EF;&#x4EE5;&#x5220;&#x9664;&#x53D8;&#x91CF;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x5E38;&#x7528;&#x7684;&#x53D8;&#x91CF;</span></span><br><span class="line"><span class="comment"># PS1 &#x662F; &#x547D;&#x4EE4;&#x884C;&#x7684;&#x5934;&#x7684;&#x6837;&#x5F0F; [root@localhost] ..</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x522B;&#x540D;&#xFF0C;&#x7B80;&#x5316;&#x547D;&#x4EE4;</span></span><br><span class="line"><span class="built_in">alias</span> cls=clear</span><br><span class="line"><span class="built_in">alias</span> ll=<span class="string">&quot;ls -l&quot;</span></span><br><span class="line"><span class="comment">#&#x76F4;&#x63A5;alias&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x6240;&#x6709;&#x7684;&#x522B;&#x540D;</span></span><br><span class="line"><span class="comment">#&#x7528;unalias&#x5220;&#x9664;&#x522B;&#x540D;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x8BBE;&#x7F6E;&#x73AF;&#x5883;&#x53D8;&#x91CF;</span></span><br><span class="line"><span class="built_in">export</span> blog=~/blog</span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x7684;&#x751F;&#x5B58;&#x5468;&#x671F;</span></span><br><span class="line"><span class="comment"># &#x5728;/etc/profile&#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x53D8;&#x91CF;&#x3010;&#x5BF9;&#x6240;&#x6709;&#x7528;&#x6237;&#x751F;&#x6548;&#xFF08;&#x6C38;&#x4E45;&#x7684;&#xFF09;&#x3011;</span></span><br><span class="line"><span class="comment"># &#x5728;&#x7528;&#x6237;&#x76EE;&#x5F55;&#x4E0B;&#x7684;.bash_profile&#x6587;&#x4EF6;&#x4E2D;&#x589E;&#x52A0;&#x53D8;&#x91CF;&#x3010;&#x5BF9;&#x5355;&#x4E00;&#x7528;&#x6237;&#x751F;&#x6548;&#xFF08;&#x6C38;&#x4E45;&#x7684;&#xFF09;&#x3011;</span></span><br><span class="line"><span class="comment"># &#x76F4;&#x63A5;&#x8FD0;&#x884C;export&#x547D;&#x4EE4;&#x5B9A;&#x4E49;&#x53D8;&#x91CF;&#x3010;&#x53EA;&#x5BF9;&#x5F53;&#x524D;shell&#xFF08;BASH&#xFF09;&#x6709;&#x6548;&#xFF08;&#x4E34;&#x65F6;&#x7684;&#xFF09;&#x3011;</span></span><br></pre></td></tr></tbody></table></figure>
-<h2 id="Shell-startup-scripts"><a href="#Shell-startup-scripts" class="headerlink" title="Shell startup scripts"></a>Shell startup scripts</h2><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#&#x5728;&#xFF01;&#xFF01;&#x4EFB;&#x4F55;&#xFF01;&#xFF01;&#x7528;&#x6237;&#x767B;&#x5F55;&#x7684;&#x65F6;&#x5019;&#x8FD0;&#x884C;&#x7684;&#x811A;&#x672C;</span></span><br><span class="line">/etc/profile</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$PS1</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$BASH</span>&quot;</span> ] &amp;&amp; [ <span class="string">&quot;<span class="variable">$BASH</span>&quot;</span> != <span class="string">&quot;/bin/sh&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="comment"># The file bash.bashrc already sets the default PS1.</span></span><br><span class="line">    <span class="comment"># PS1=&apos;\h:\w\$ &apos;</span></span><br><span class="line">    <span class="keyword">if</span> [ -f /etc/bash.bashrc ]; <span class="keyword">then</span></span><br><span class="line">      . /etc/bash.bashrc</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">if</span> [ <span class="string">&quot;`id -u`&quot;</span> -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">      PS1=<span class="string">&apos;# &apos;</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      PS1=<span class="string">&apos;$ &apos;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># &#x8BFB;&#x53D6;/etc/profile.d/*.sh&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x91CC;&#x9762;&#x5B9A;&#x4E49;&#x4E86;&#x5F88;&#x591A;&#x7CFB;&#x7EDF;&#x7528;&#x7684;path</span></span><br><span class="line"><span class="keyword">if</span> [ -d /etc/profile.d ]; <span class="keyword">then</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> /etc/profile.d/*.sh; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -r <span class="variable">$i</span> ]; <span class="keyword">then</span></span><br><span class="line">      . <span class="variable">$i</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">  <span class="built_in">unset</span> i</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x5728;&#x6307;&#x5B9A;&#x7528;&#x6237;&#x767B;&#x5F55;&#x65F6;&#x8FD0;&#x884C;&#x7684;&#x811A;&#x672C;&#xFF0C;&#x4E0B;&#x9762;&#x4E24;&#x79CD;&#x5728;&#x4E0D;&#x540C;&#x7CFB;&#x7EDF;&#x4E2D;&#x90FD;&#x53EF;&#x80FD;&#xFF0C;&#x53EA;&#x662F;&#x547D;&#x540D;&#x4E0D;&#x540C;</span></span><br><span class="line">~/.bash_profile ~/.bashrc </span><br><span class="line"></span><br><span class="line">PATH=<span class="string">&quot;/Library/Frameworks/Python.framework/Versions/3.6/bin:<span class="variable">${PATH}</span>&quot;</span></span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line">JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home</span><br><span class="line">CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar</span><br><span class="line">PATH=<span class="variable">$JAVA_HOME</span>/bin:/usr/<span class="built_in">local</span>/Cellar/graphviz/2.40.1/bin:<span class="variable">$PATH</span>:</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br><span class="line"><span class="built_in">export</span> CLASSPATH</span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line"><span class="built_in">export</span> NVM_DIR=<span class="string">&quot;/Users/chenzhou/.nvm&quot;</span></span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span>  <span class="comment"># This loads nvm</span></span><br><span class="line"><span class="built_in">export</span> HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x9000;&#x51FA;&#x7684;&#x65F6;&#x5019;&#x8FD0;&#x884C;&#x7684;</span></span><br><span class="line">~/.bash_logout</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="&#x6570;&#x636E;&#x8F93;&#x5165;&#x8F93;&#x51FA;&#x6D41;&#x548C;&#x7BA1;&#x9053;"><a href="#&#x6570;&#x636E;&#x8F93;&#x5165;&#x8F93;&#x51FA;&#x6D41;&#x548C;&#x7BA1;&#x9053;" class="headerlink" title="&#x6570;&#x636E;&#x8F93;&#x5165;&#x8F93;&#x51FA;&#x6D41;&#x548C;&#x7BA1;&#x9053;"></a>&#x6570;&#x636E;&#x8F93;&#x5165;&#x8F93;&#x51FA;&#x6D41;&#x548C;&#x7BA1;&#x9053;</h2><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#x6807;&#x51C6;&#x8F93;&#x5165;stdin &#x6307;&#x6570;&#x636E;&#x7684;&#x8F93;&#x5165;&#xFF0C;&#x4EE3;&#x7801;&#x4E3A;0&#xFF0C;&#x4F7F;&#x7528;&lt;&#x6216;&#x8005;&lt;&lt;&#xFF0C; &#x9ED8;&#x8BA4;&#x662F;&#x952E;&#x76D8;</span></span><br><span class="line"><span class="comment"># &#x6807;&#x51C6;&#x8F93;&#x51FA;stdout &#x6307;&#x6307;&#x4EE4;&#x6267;&#x884C;&#x6210;&#x529F;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x4EE3;&#x7801;&#x662F;1 &#x4F7F;&#x7528;&gt;&#x6216;&#x8005;&gt;&gt; &#x9ED8;&#x8BA4;&#x5C4F;&#x5E55;&#x663E;&#x793A;</span></span><br><span class="line"><span class="comment"># &#x6807;&#x51C6;&#x9519;&#x8BEF;&#x8F93;&#x51FA; stderr &#x6307;&#x6307;&#x4EE4;&#x6267;&#x884C;&#x5931;&#x8D25;&#x8FD4;&#x56DE;&#x7684;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#xFF0C;&#x4EE3;&#x7801;2 &#x4F7F;&#x7528;2&gt;&#x6216;&#x8005;2&gt;&gt; &#x9ED8;&#x8BA4;&#x5C4F;&#x5E55;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x5728;/dev/&#x4E0B;&#xFF0C;&#x8FD9;&#x4E09;&#x4E2A;&#x94FE;&#x63A5;&#x5230;&#x5B9E;&#x9645;&#x8F93;&#x51FA;&#x6587;&#x4EF6;</span></span><br><span class="line">lrwxrwxrwx 1 root root 15 Nov  5 22:39 stderr -&gt; /proc/self/fd/2</span><br><span class="line">lrwxrwxrwx 1 root root 15 Nov  5 22:39 stdin -&gt; /proc/self/fd/0</span><br><span class="line">lrwxrwxrwx 1 root root 15 Nov  5 22:39 stdout -&gt; /proc/self/fd/1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#&#x591A;&#x4E2A;&#x6307;&#x4EE4;&#x6309;&#x987A;&#x5E8F;&#x6267;&#x884C;&#xFF0C;&#x6BCF;&#x4E2A;&amp;&amp;&#x524D;&#x9762;&#x7684;&#x547D;&#x4EE4;&#x6267;&#x884C;&#x6210;&#x529F;&#xFF0C;&#x624D;&#x4F1A;&#x6267;&#x884C;&#x540E;&#x9762;&#x7684;</span></span><br><span class="line">mkdir mydir&amp;&amp;<span class="built_in">cd</span> mydir&amp;&amp;touch myfile</span><br></pre></td></tr></tbody></table></figure>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/18/javacollections/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chen Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/18/javacollections/" itemprop="url">Java 集合包一些性质</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-18T17:02:42+08:00">
-                2018-11-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/j2ee/" itemprop="url" rel="index">
-                    <span itemprop="name">j2ee</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Java-&#x96C6;&#x5408;&#x5305;-&#x603B;&#x7ED3;"><a href="#Java-&#x96C6;&#x5408;&#x5305;-&#x603B;&#x7ED3;" class="headerlink" title="Java &#x96C6;&#x5408;&#x5305; &#x603B;&#x7ED3;"></a>Java &#x96C6;&#x5408;&#x5305; &#x603B;&#x7ED3;</h1><h2 id="&#x6846;&#x67B6;"><a href="#&#x6846;&#x67B6;" class="headerlink" title="&#x6846;&#x67B6;"></a>&#x6846;&#x67B6;</h2><p><img src="/2018/11/18/javacollections/./javacollections/collection1.png"></p>
-<p><img src="/2018/11/18/javacollections/./javacollections/collection2.png">&#x6846;&#x67B6;</p>
-<h4 id="Collection"><a href="#Collection" class="headerlink" title="- Collection"></a>- Collection</h4><h5 id="1-List"><a href="#1-List" class="headerlink" title="1. List"></a>1. List</h5><ul>
-<li>Arraylist&#xFF1A;&#x6570;&#x7EC4;&#xFF08;&#x67E5;&#x8BE2;&#x5FEB;,&#x589E;&#x5220;&#x6162; &#x7EBF;&#x7A0B;&#x4E0D;&#x5B89;&#x5168;,&#x6548;&#x7387;&#x9AD8; &#xFF09;</li>
-<li>Vector&#xFF1A;&#x6570;&#x7EC4;&#xFF08;&#x67E5;&#x8BE2;&#x5FEB;,&#x589E;&#x5220;&#x6162; &#x7EBF;&#x7A0B;&#x5B89;&#x5168;,&#x6548;&#x7387;&#x4F4E; &#xFF09;</li>
-<li>LinkedList&#xFF1A;&#x94FE;&#x8868;&#xFF08;&#x67E5;&#x8BE2;&#x6162;,&#x589E;&#x5220;&#x5FEB; &#x7EBF;&#x7A0B;&#x4E0D;&#x5B89;&#x5168;,&#x6548;&#x7387;&#x9AD8; &#xFF09;</li>
-</ul>
-<h5 id="2-Set"><a href="#2-Set" class="headerlink" title="2. Set"></a>2. Set</h5><ul>
-<li>HashSet&#xFF08;&#x65E0;&#x5E8F;&#xFF0C;&#x552F;&#x4E00;&#xFF09;:&#x54C8;&#x5E0C;&#x8868;&#x6216;&#x8005;&#x53EB;&#x6563;&#x5217;&#x96C6;(hash table)</li>
-<li>LinkedHashSet&#xFF1A;&#x94FE;&#x8868;&#x548C;&#x54C8;&#x5E0C;&#x8868;&#x7EC4;&#x6210; &#x3002; &#x7531;&#x94FE;&#x8868;&#x4FDD;&#x8BC1;&#x5143;&#x7D20;&#x7684;&#x6392;&#x5E8F; &#xFF0C; &#x7531;&#x54C8;&#x5E0C;&#x8868;&#x8BC1;&#x5143;&#x7D20;&#x7684;&#x552F;&#x4E00;&#x6027;</li>
-<li>TreeSet&#xFF08;&#x6709;&#x5E8F;&#xFF0C;&#x552F;&#x4E00;&#xFF09;&#xFF1A;&#x7EA2;&#x9ED1;&#x6811;(&#x81EA;&#x5E73;&#x8861;&#x7684;&#x6392;&#x5E8F;&#x4E8C;&#x53C9;&#x6811;&#x3002;)</li>
-</ul>
-<h4 id="Map"><a href="#Map" class="headerlink" title="- Map"></a>- Map</h4><ul>
-<li>HashMap&#xFF1A;&#x57FA;&#x4E8E;&#x54C8;&#x5E0C;&#x8868;&#x7684;Map&#x63A5;&#x53E3;&#x5B9E;&#x73B0;&#xFF08;&#x54C8;&#x5E0C;&#x8868;&#x5BF9;&#x952E;&#x8FDB;&#x884C;&#x6563;&#x5217;&#xFF0C;Map&#x7ED3;&#x6784;&#x5373;&#x6620;&#x5C04;&#x8868;&#x5B58;&#x653E;&#x952E;&#x503C;&#x5BF9;&#xFF09;</li>
-<li>LinkedHashMap:HashMap &#x7684;&#x57FA;&#x7840;&#x4E0A;&#x52A0;&#x4E0A;&#x4E86;&#x94FE;&#x8868;&#x6570;&#x636E;&#x7ED3;&#x6784;</li>
-<li>HashTable:&#x54C8;&#x5E0C;&#x8868;</li>
-<li>TreeMap:&#x7EA2;&#x9ED1;&#x6811;&#xFF08;&#x81EA;&#x5E73;&#x8861;&#x7684;&#x6392;&#x5E8F;&#x4E8C;&#x53C9;&#x6811;&#xFF09;</li>
-</ul>
-<h3 id="HashMap&#x548C;HashSet&#x533A;&#x522B;"><a href="#HashMap&#x548C;HashSet&#x533A;&#x522B;" class="headerlink" title="HashMap&#x548C;HashSet&#x533A;&#x522B;"></a>HashMap&#x548C;HashSet&#x533A;&#x522B;</h3><p> a. HashMap&#x5B9E;&#x73B0;&#x4E86;Map&#x63A5;&#x53E3;&#xFF0C;HashSet&#x5B9E;&#x73B0;&#x4E86;Set&#x63A5;&#x53E3;</p>
-<p>b.HashMap&#x5B58;&#x50A8;&#x952E;&#x503C;&#x5BF9;&#xFF0C;HashSet&#x5B58;&#x50A8;&#x5BF9;&#x8C61;</p>
-<p>c.HashMap&#x8C03;&#x7528;put()&#x5411;map&#x4E2D;&#x6DFB;&#x52A0;&#x5143;&#x7D20;&#xFF0C;HashSet&#x8C03;&#x7528;add()&#x50CF;set&#x4E2D;&#x6DFB;&#x52A0;&#x5143;&#x7D20;</p>
-<p>d.HashMap&#x4F7F;&#x7528;Key&#x8BA1;&#x7B97;hashcode,HashMap&#x4F7F;&#x7528;&#x6210;&#x5458;&#x8BA1;&#x7B97;Hashcode</p>
-<h3 id="HashMap&#x548C;HashTable&#x6709;&#x4F55;&#x4E0D;&#x540C;"><a href="#HashMap&#x548C;HashTable&#x6709;&#x4F55;&#x4E0D;&#x540C;" class="headerlink" title="HashMap&#x548C;HashTable&#x6709;&#x4F55;&#x4E0D;&#x540C;"></a>HashMap&#x548C;HashTable&#x6709;&#x4F55;&#x4E0D;&#x540C;</h3><p>&#xFF08;1&#xFF09;HashMap&#x540C;&#x610F;key&#x548C;value&#x4E3A;null&#x3002;&#x800C;HashTable&#x4E0D;&#x540C;&#x610F;&#x3002;</p>
-<p>&#xFF08;2&#xFF09;HashTable&#x662F;&#x540C;&#x6B65;&#x7684;&#xFF0C;&#x800C;HashMap&#x4E0D;&#x662F;&#x3002;&#x6240;&#x4EE5;HashMap&#x9002;&#x5408;&#x5355;&#x7EBF;&#x7A0B;&#x73AF;&#x5883;&#xFF0C;HashTable&#x9002;&#x5408;&#x591A;&#x7EBF;&#x7A0B;&#x73AF;&#x5883;&#x3002;</p>
-<p>&#xFF08;3&#xFF09;&#x5728;Java1.4&#x4E2D;&#x5F15;&#x5165;&#x4E86;LinkedHashMap&#xFF0C;HashMap&#x7684;&#x4E00;&#x4E2A;&#x5B50;&#x7C7B;&#xFF0C;&#x5047;&#x5982;&#x4F60;&#x60F3;&#x8981;&#x904D;&#x5386;&#x987A;&#x5E8F;&#xFF0C;&#x4F60;&#x975E;&#x5E38;easy&#x4ECE;HashMap&#x8F6C;&#x5411;LinkedHashMap&#xFF0C;&#x53EF;&#x662F;HashTable&#x4E0D;&#x662F;&#x8FD9;&#x79CD;&#x3002;&#x5B83;&#x7684;&#x987A;&#x5E8F;&#x662F;&#x4E0D;&#x53EF;&#x9884;&#x77E5;&#x7684;&#x3002;</p>
-<p>&#xFF08;4&#xFF09;HashMap&#x63D0;&#x4F9B;&#x5BF9;key&#x7684;Set&#x8FDB;&#x884C;&#x904D;&#x5386;&#x3002;&#x56E0;&#x6B64;&#x5B83;&#x662F;fail-fast&#x7684;&#x3002;&#x4F46;HashTable&#x63D0;&#x4F9B;&#x5BF9;key&#x7684;Enumeration&#x8FDB;&#x884C;&#x904D;&#x5386;&#xFF0C;&#x5B83;&#x4E0D;&#x652F;&#x6301;fail-fast&#x3002;</p>
-<p>&#xFF08;5&#xFF09;HashTable&#x88AB;&#x89C9;&#x5F97;&#x662F;&#x4E2A;&#x9057;&#x7559;&#x7684;&#x7C7B;&#x3002;&#x5047;&#x8BBE;&#x4F60;&#x5BFB;&#x6C42;&#x5728;&#x8FED;&#x4EE3;&#x7684;&#x65F6;&#x5019;&#x6539;&#x52A8;Map&#xFF0C;&#x4F60;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;CocurrentHashMap&#x3002;</p>
-<h3 id="ArrayList&#x548C;Vector&#x6709;&#x4F55;&#x5F02;&#x540C;&#x70B9;"><a href="#ArrayList&#x548C;Vector&#x6709;&#x4F55;&#x5F02;&#x540C;&#x70B9;" class="headerlink" title="ArrayList&#x548C;Vector&#x6709;&#x4F55;&#x5F02;&#x540C;&#x70B9;"></a>ArrayList&#x548C;Vector&#x6709;&#x4F55;&#x5F02;&#x540C;&#x70B9;</h3><p>1&#xFF09;  Vector&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x662F;&#x540C;&#x6B65;&#x7684;(Synchronized),&#x662F;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;(thread-safe)&#xFF0C;&#x800C;ArrayList&#x7684;&#x65B9;&#x6CD5;&#x4E0D;&#x662F;&#xFF0C;&#x7531;&#x4E8E;&#x7EBF;&#x7A0B;&#x7684;&#x540C;&#x6B65;&#x5FC5;&#x7136;&#x8981;&#x5F71;&#x54CD;&#x6027;&#x80FD;&#xFF0C;&#x56E0;&#x6B64;,ArrayList&#x7684;&#x6027;&#x80FD;&#x6BD4;Vector&#x597D;&#x3002;  </p>
-<p>2&#xFF09; &#x5F53;Vector&#x6216;ArrayList&#x4E2D;&#x7684;&#x5143;&#x7D20;&#x8D85;&#x8FC7;&#x5B83;&#x7684;&#x521D;&#x59CB;&#x5927;&#x5C0F;&#x65F6;,Vector&#x4F1A;&#x5C06;&#x5B83;&#x7684;&#x5BB9;&#x91CF;&#x7FFB;&#x500D;,&#x800C;ArrayList&#x53EA;&#x589E;&#x52A0;50%&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x8FD9;&#x6837;,ArrayList&#x5C31;&#x6709;&#x5229;&#x4E8E;&#x8282;&#x7EA6;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x3002;</p>
-<h3 id="ArrayList-&#x6269;&#x5BB9;"><a href="#ArrayList-&#x6269;&#x5BB9;" class="headerlink" title="ArrayList &#x6269;&#x5BB9;"></a>ArrayList &#x6269;&#x5BB9;</h3><p>&#x9996;&#x5148;&#xFF0C;&#x5B9A;&#x4E49;&#x9ED8;&#x8BA4;&#x521D;&#x59CB;&#x5BB9;&#x91CF;&#xFF0C;&#x4E3A;10</p>
-<p>&#x6269;&#x5BB9;&#x65B9;&#x6CD5;&#xFF1A;&gt;&gt;&#x4F4D;&#x8FD0;&#x7B97;&#xFF0C;&#x53F3;&#x79FB;&#x52A8;&#x4E00;&#x4F4D;&#x3002; &#x5BB9;&#x91CF;&#x76F8;&#x5F53;&#x4E8E;&#x6269;&#x5927;&#x4E86;1.5&#x500D;&#xFF1B;</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -601,9 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/14/javainterview/" itemprop="url">Java 常见面试题总结</a></h1>
+          <h1 class="post-title" itemprop="name headline">Java 常见面试题总结</h1>
         
 
         <div class="post-meta">
@@ -657,6 +333,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
 
           
 
@@ -675,9 +356,7 @@
       
 
       
-        
-          
-            <h1 id="Java-&#x5E38;&#x89C1;&#x9762;&#x8BD5;&#x9898;&#x603B;&#x7ED3;"><a href="#Java-&#x5E38;&#x89C1;&#x9762;&#x8BD5;&#x9898;&#x603B;&#x7ED3;" class="headerlink" title="Java &#x5E38;&#x89C1;&#x9762;&#x8BD5;&#x9898;&#x603B;&#x7ED3;"></a>Java &#x5E38;&#x89C1;&#x9762;&#x8BD5;&#x9898;&#x603B;&#x7ED3;</h1><h2 id="Java&#x57FA;&#x7840;"><a href="#Java&#x57FA;&#x7840;" class="headerlink" title="Java&#x57FA;&#x7840;"></a>Java&#x57FA;&#x7840;</h2><h3 id="jdk-jvm-jre"><a href="#jdk-jvm-jre" class="headerlink" title="jdk,jvm,jre"></a>jdk,jvm,jre</h3><p>jre : java runtime enviornment</p>
+        <h1 id="Java-&#x5E38;&#x89C1;&#x9762;&#x8BD5;&#x9898;&#x603B;&#x7ED3;"><a href="#Java-&#x5E38;&#x89C1;&#x9762;&#x8BD5;&#x9898;&#x603B;&#x7ED3;" class="headerlink" title="Java &#x5E38;&#x89C1;&#x9762;&#x8BD5;&#x9898;&#x603B;&#x7ED3;"></a>Java &#x5E38;&#x89C1;&#x9762;&#x8BD5;&#x9898;&#x603B;&#x7ED3;</h1><h2 id="Java&#x57FA;&#x7840;"><a href="#Java&#x57FA;&#x7840;" class="headerlink" title="Java&#x57FA;&#x7840;"></a>Java&#x57FA;&#x7840;</h2><h3 id="jdk-jvm-jre"><a href="#jdk-jvm-jre" class="headerlink" title="jdk,jvm,jre"></a>jdk,jvm,jre</h3><p>jre : java runtime enviornment</p>
 <p>jdk: java development kit</p>
 <p>jvm+lib = jre</p>
 <p>jre + java&#x5DE5;&#x5177;(bin&#x4E0B;&#x7684;&#xFF0C;&#x6BD4;&#x5982;javac jar..) = jdk</p>
@@ -940,8 +619,6 @@ Durability&#x8010;&#x4E45;&#x6027;&#xFF1A;&#x4E8B;&#x52A1;&#x4E00;&#x65E6;&#x621
             document.body.appendChild(img);
           });
       </script>
-          
-        
       
     </div>
     
@@ -953,163 +630,52 @@ Durability&#x8010;&#x4E45;&#x6027;&#xFF1A;&#x4E8B;&#x52A1;&#x4E00;&#x65E6;&#x621
     
 
     
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Chen Zhou
+  </li>
+
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/13/eureka/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chen Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/13/eureka/" itemprop="url">eureka</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-13T18:56:27+08:00">
-                2018-11-13
-              </time>
+              <a href="/2018/11/13/eureka/" rel="next" title="eureka">
+                <i class="fa fa-chevron-left"></i> eureka
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
+              <a href="/2018/11/18/javacollections/" rel="prev" title="Java 集合包一些性质">
+                Java 集合包一些性质 <i class="fa fa-chevron-right"></i>
+              </a>
             
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/j2ee/" itemprop="url" rel="index">
-                    <span itemprop="name">j2ee</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="Eureka"><a href="#Eureka" class="headerlink" title="Eureka"></a>Eureka</h1><p>SpringBoot 中 Eureka 框架简介 </p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/13/eureka/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1119,896 +685,11 @@ Durability&#x8010;&#x4E45;&#x6027;&#xFF1A;&#x4E8B;&#x52A1;&#x4E00;&#x65E6;&#x621
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/allmaps/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chen Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/11/allmaps/" itemprop="url">Java中Map包源码解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-11T22:10:06+08:00">
-                2018-11-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/j2ee/" itemprop="url" rel="index">
-                    <span itemprop="name">j2ee</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="HashMap-HashTable-ConcurrentHashmap"><a href="#HashMap-HashTable-ConcurrentHashmap" class="headerlink" title="HashMap  HashTable  ConcurrentHashmap"></a>HashMap  HashTable  ConcurrentHashmap</h1><p>🐓HashMap  HashTable  ConcurrentHashmap 比对</p>
-<p>以及 源码分析</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/11/allmaps/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chen Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/10/redis/" itemprop="url">redis 指令</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-10T13:25:57+08:00">
-                2018-11-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/j2ee/" itemprop="url" rel="index">
-                    <span itemprop="name">j2ee</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Redis-指令"><a href="#Redis-指令" class="headerlink" title="Redis 指令"></a>Redis 指令</h1><p>Redis 常用指令入门</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/10/redis/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/springbeansrc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chen Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/springbeansrc/" itemprop="url">Spring源码  容器创建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-06T16:35:11+08:00">
-                2018-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/j2ee/" itemprop="url" rel="index">
-                    <span itemprop="name">j2ee</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Spring源码-容器创建"><a href="#Spring源码-容器创建" class="headerlink" title="Spring源码  容器创建"></a>Spring源码  容器创建</h1><h2 id="继承关系"><a href="#继承关系" class="headerlink" title="继承关系"></a>继承关系</h2><p>主要涉及几个类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AbstractApplicationContext</span><br><span class="line">	GenericApplicationContext</span><br><span class="line">		AnnotationConfigApplicationContext</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/06/springbeansrc/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/composerinstall/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chen Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/05/composerinstall/" itemprop="url">hyperledger composer 安装采坑</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T16:55:29+08:00">
-                2018-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Block-Chain/" itemprop="url" rel="index">
-                    <span itemprop="name">Block Chain</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="hyperledger-composer-安装踩坑"><a href="#hyperledger-composer-安装踩坑" class="headerlink" title="hyperledger composer 安装踩坑"></a>hyperledger composer 安装踩坑</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>😫 阿里云服务器下安装composer 过程(踩坑)</p>
-<p>部署环境：阿里云<br>镜像：       ubuntu_14_0405_64_20G_alibase_20170824.vhd<br>规格:       ecs.t5-lc1m2.small</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/05/composerinstall/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/mobilenet/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chen Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/02/mobilenet/" itemprop="url">Mobile Net</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-02T17:58:32+08:00">
-                2018-11-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Mobile-Net"><a href="#Mobile-Net" class="headerlink" title="Mobile Net"></a>Mobile Net</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>🚴文章：</p>
-<p>Mobbile Net  <a href="https://arxiv.org/abs/1704.04861" target="_blank" rel="noopener">https://arxiv.org/abs/1704.04861</a></p>
-<p>Mobbile Net V2  <a href="https://arxiv.org/pdf/1801.04381.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1801.04381.pdf</a></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/02/mobilenet/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/20/shiro-springboot/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Chen Zhou">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/20/shiro-springboot/" itemprop="url">Springboot 整合 shiro</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T15:02:35+08:00">
-                2018-10-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/j2ee/" itemprop="url" rel="index">
-                    <span itemprop="name">j2ee</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Springboot-整合-shiro"><a href="#Springboot-整合-shiro" class="headerlink" title="Springboot 整合 shiro"></a>Springboot 整合 shiro</h1><p>Apache Shiro是一个Java的安全框架，强大且易用。</p>
-<p>提供了认证，授权，加密，和会话管理等功能</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/10/20/shiro-springboot/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
 
 
           </div>
@@ -2016,6 +697,10 @@ Durability&#x8010;&#x4E45;&#x6027;&#xFF1A;&#x4E8B;&#x52A1;&#x4E00;&#x65E6;&#x621
 
 
           
+
+  
+
+
 
         </div>
         
@@ -2036,8 +721,17 @@ Durability&#x8010;&#x4E45;&#x6027;&#xFF1A;&#x4E8B;&#x52A1;&#x4E00;&#x65E6;&#x621
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -2108,6 +802,22 @@ Durability&#x8010;&#x4E45;&#x6027;&#xFF1A;&#x4E8B;&#x52A1;&#x4E00;&#x65E6;&#x621
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-常见面试题总结"><span class="nav-number">1.</span> <span class="nav-text">Java 常见面试题总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java基础"><span class="nav-number">1.1.</span> <span class="nav-text">Java基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk-jvm-jre"><span class="nav-number">1.1.1.</span> <span class="nav-text">jdk,jvm,jre</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CLASSPATH"><span class="nav-number">1.1.2.</span> <span class="nav-text">CLASSPATH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#public-protected-default-private"><span class="nav-number">1.1.3.</span> <span class="nav-text">public protected default private</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring"><span class="nav-number">1.2.</span> <span class="nav-text">spring</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IOC-DI"><span class="nav-number">1.2.1.</span> <span class="nav-text">IOC/DI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP"><span class="nav-number">1.2.2.</span> <span class="nav-text">AOP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM"><span class="nav-number">1.3.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内存模型"><span class="nav-number">1.3.1.</span> <span class="nav-text">内存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JAVA程序运行过程"><span class="nav-number">1.3.2.</span> <span class="nav-text">JAVA程序运行过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的创建"><span class="nav-number">1.3.3.</span> <span class="nav-text">对象的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的结构"><span class="nav-number">1.3.4.</span> <span class="nav-text">对象的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收"><span class="nav-number">1.3.5.</span> <span class="nav-text">垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引用计数法"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">引用计数法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可达性分析法"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">可达性分析法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#几种清除垃圾的做法"><span class="nav-number">1.3.5.3.</span> <span class="nav-text">几种清除垃圾的做法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#标记清除"><span class="nav-number">1.3.5.3.1.</span> <span class="nav-text">标记清除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#复制清除"><span class="nav-number">1.3.5.3.2.</span> <span class="nav-text">复制清除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#标记整理"><span class="nav-number">1.3.5.3.3.</span> <span class="nav-text">标记整理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新老生代垃圾回收"><span class="nav-number">1.3.5.4.</span> <span class="nav-text">新老生代垃圾回收</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Minor-GC、Major-GC和Full-GC之间的区别"><span class="nav-number">1.3.5.5.</span> <span class="nav-text">Minor GC、Major GC和Full GC之间的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jvm常用参数"><span class="nav-number">1.3.5.6.</span> <span class="nav-text">jvm常用参数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程"><span class="nav-number">1.4.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加锁方式"><span class="nav-number">1.4.1.</span> <span class="nav-text">加锁方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程"><span class="nav-number">1.4.2.</span> <span class="nav-text">线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程状态"><span class="nav-number">1.4.3.</span> <span class="nav-text">线程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sleep和wait的区别"><span class="nav-number">1.4.4.</span> <span class="nav-text">sleep和wait的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yield"><span class="nav-number">1.4.5.</span> <span class="nav-text">yield</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join"><span class="nav-number">1.4.6.</span> <span class="nav-text">join</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#守护线程"><span class="nav-number">1.4.7.</span> <span class="nav-text">守护线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他常用方法"><span class="nav-number">1.4.8.</span> <span class="nav-text">其他常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Synchronized"><span class="nav-number">1.4.9.</span> <span class="nav-text">Synchronized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concurrent包"><span class="nav-number">1.4.10.</span> <span class="nav-text">Concurrent包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定时任务"><span class="nav-number">1.4.11.</span> <span class="nav-text">定时任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile"><span class="nav-number">1.4.12.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可重入锁"><span class="nav-number">1.4.13.</span> <span class="nav-text">可重入锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#悲观锁-乐观锁"><span class="nav-number">1.4.14.</span> <span class="nav-text">悲观锁 乐观锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式"><span class="nav-number">1.5.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单例"><span class="nav-number">1.5.1.</span> <span class="nav-text">单例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单工厂，工厂方法，抽象工厂"><span class="nav-number">1.5.2.</span> <span class="nav-text">简单工厂，工厂方法，抽象工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单工厂"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">简单工厂</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工厂方法"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">工厂方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象工厂"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">抽象工厂</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK代理"><span class="nav-number">1.5.3.</span> <span class="nav-text">JDK代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CGLIB代理"><span class="nav-number">1.5.4.</span> <span class="nav-text">CGLIB代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰者模式"><span class="nav-number">1.5.5.</span> <span class="nav-text">装饰者模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机网络"><span class="nav-number">1.6.</span> <span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手四次挥手"><span class="nav-number">1.6.1.</span> <span class="nav-text">三次握手四次挥手</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux"><span class="nav-number">1.7.</span> <span class="nav-text">linux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">1.8.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql和oracle区别"><span class="nav-number">1.8.1.</span> <span class="nav-text">Mysql和oracle区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务隔离界别"><span class="nav-number">1.8.2.</span> <span class="nav-text">事务隔离界别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引"><span class="nav-number">1.8.3.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树"><span class="nav-number">1.8.4.</span> <span class="nav-text">B+ 树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID"><span class="nav-number">1.8.5.</span> <span class="nav-text">ACID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mysql引擎"><span class="nav-number">1.8.6.</span> <span class="nav-text">Mysql引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#范式"><span class="nav-number">1.8.7.</span> <span class="nav-text">范式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Join"><span class="nav-number">1.8.8.</span> <span class="nav-text">Join</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RabbitMq"><span class="nav-number">1.9.</span> <span class="nav-text">RabbitMq</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-消息基于什么传输？"><span class="nav-number">1.9.1.</span> <span class="nav-text">4. 消息基于什么传输？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-消息如何分发？"><span class="nav-number">1.9.2.</span> <span class="nav-text">5. 消息如何分发？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-消息怎么路由？"><span class="nav-number">1.9.3.</span> <span class="nav-text">6. 消息怎么路由？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-如何确保消息不丢失？"><span class="nav-number">1.9.4.</span> <span class="nav-text">7. 如何确保消息不丢失？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-使用RabbitMQ有什么好处？"><span class="nav-number">1.9.5.</span> <span class="nav-text">8. 使用RabbitMQ有什么好处？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-其他"><span class="nav-number">1.9.6.</span> <span class="nav-text">9. 其他</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mybatis"><span class="nav-number">1.10.</span> <span class="nav-text">Mybatis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mybatis动态sql是做什么的？都有哪些动态sql？能简述一下动态sql的执行原理不？"><span class="nav-number">1.10.1.</span> <span class="nav-text">Mybatis动态sql是做什么的？都有哪些动态sql？能简述一下动态sql的执行原理不？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mybatis是如何进行分页的？"><span class="nav-number">1.10.2.</span> <span class="nav-text">Mybatis是如何进行分页的？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java反射的三种实现方式"><span class="nav-number">1.11.</span> <span class="nav-text">Java反射的三种实现方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#临时记录"><span class="nav-number">1.12.</span> <span class="nav-text">临时记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP中http信息"><span class="nav-number">1.12.1.</span> <span class="nav-text">AOP中http信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Async"><span class="nav-number">1.12.2.</span> <span class="nav-text">@Async</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -2262,11 +972,15 @@ Durability&#x8010;&#x4E45;&#x6027;&#xFF1A;&#x4E8B;&#x52A1;&#x4E00;&#x65E6;&#x621
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -2319,26 +1033,6 @@ Durability&#x8010;&#x4E45;&#x6027;&#xFF1A;&#x4E8B;&#x52A1;&#x4E00;&#x65E6;&#x621
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
